@@ -1,2 +1,6 @@
-<h1>Calendar#index</h1>
-<p>Find me in app/views/calendar/index.html.erb</p>
+<h1>Calendar</h1>
+<%= @time %><br />
+<%= @time.year.month %><br />
+<%= @time.strftime("%B") %><br />
+Day of the week: <%= @day_of_the_week %><br />
+<%= calendar_method(@month, @year).html_safe %>
