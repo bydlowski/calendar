@@ -3,8 +3,15 @@ module CalendarHelper
   def calendar_method(month, year)
 
     # Create a date based on the month and year that are passed to this action
+    # Example 2016 11 01
     current_date = Date.new(year, month, 1)
+
+    # Create a numerical value based on the date selected in the above variable
+    # Example 2016 11 01 is 306
     year_date = (current_date.yday - 1)
+
+    # Create a numerical value based on the actual date
+    # Example 2016 05 05 is 126
     actual_date = (Date.today).yday
 
     # Calculations for the previous month
