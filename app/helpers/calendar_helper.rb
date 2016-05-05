@@ -5,6 +5,7 @@ module CalendarHelper
     # Create a date based on the month and year that are passed to this action
     current_date = Date.new(year, month, 1)
     year_date = (current_date.yday - 1)
+    actual_date = (Date.today).yday
 
     # Calculations for the previous month
     prev_month = month - 1
@@ -39,7 +40,7 @@ module CalendarHelper
     # Print out the month of the passed date
     cal += "<h2>#{current_date.strftime("%B")} / #{current_date.strftime("%Y")}</h2>"
 
-    # Create a variable that holds which day of teh week (integer) is the current day
+    # Create a variable that holds which day of the week (integer) is the current day
     day_of_the_week = current_date.strftime("%w").to_i
 
     # Initiate the variabl holding the day
@@ -65,28 +66,52 @@ module CalendarHelper
 
     # Print the first days of the month (first row)
     (7 - day_of_the_week).times do
-      cal += "<td class='#{year_date += 1}'>#{the_day += 1}</td>"
+      this_date = (year_date += 1) 
+      this_day = (the_day += 1)
+      if this_date == actual_date
+        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+      else
+        cal += "<td>#{this_day}</td>"
+      end
     end
     cal += "</tr>"
 
     # Second row
     cal += "<tr>"
-    7.times do 
-      cal += "<td>#{the_day += 1}</td>"
+    7.times do
+      this_date = (year_date += 1) 
+      this_day = (the_day += 1)
+      if this_date == actual_date
+        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+      else
+        cal += "<td>#{this_day}</td>"
+      end
     end
     cal += "</tr>"
 
     # Third row
     cal += "<tr>"
-    7.times do 
-      cal += "<td>#{the_day += 1}</td>"
+    7.times do
+      this_date = (year_date += 1) 
+      this_day = (the_day += 1)
+      if this_date == actual_date
+        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+      else
+        cal += "<td>#{this_day}</td>"
+      end
     end
     cal += "</tr>"
 
     # Forth row
     cal += "<tr>"
-    7.times do
-      cal += "<td>#{the_day += 1}</td>"
+    7.times do 
+      this_date = (year_date += 1)
+      this_day = (the_day += 1)
+      if this_date == actual_date
+        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+      else
+        cal += "<td>#{this_day}</td>"
+      end
     end
     cal += "</tr>"
 
@@ -95,7 +120,7 @@ module CalendarHelper
       cal += "<tr>"
       7.times do
         if the_day < month_days
-          cal += "<td>#{the_day += 1}</td>"
+          cal += "<td class='#{year_date += 1}'>#{the_day += 1}</td>"
         else 
           the_day += 1
           cal += "<td>&nbsp;</td>"
@@ -109,7 +134,7 @@ module CalendarHelper
       cal += "<tr>"
       7.times do
         if the_day < month_days
-          cal += "<td>#{the_day += 1}</td>"
+          cal += "<td class='#{year_date += 1}'>#{the_day += 1}</td>"
         else 
           the_day += 1
           cal += "<td>&nbsp;</td>"
@@ -119,7 +144,7 @@ module CalendarHelper
     end
 
     cal += "</tr></table>"
-    cal += "<br />Month: #{month}<br />Year: #{year}<br />Date: #{current_date}<br />Days in the month: #{month_days}"
+    cal += "<br />Month: #{month}<br />Year: #{year}<br />Date: #{current_date}<br />Days in the month: #{month_days}<br />Today: #{actual_date}"
     return cal
   end
 
