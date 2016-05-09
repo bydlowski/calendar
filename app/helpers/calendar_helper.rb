@@ -1,5 +1,29 @@
 module CalendarHelper
 
+  def national
+    attr_accessor :test_day
+    national_array = [1, 84, 111, 121, 250, 285, 306, 319, 359]
+    @test_day = 121
+  end
+
+  def database(test)
+    print = "<br />".html_safe
+    array = []
+    content_array = []
+    test.each do |t|
+      array << t
+    end
+    array.each do |a|
+      content_array << a['content']
+    end
+    print += "<br />".html_safe 
+    print += "<p>#{array}</p>" 
+    print += "<br />".html_safe 
+    print += "<p>" + array[1]['content'] + "</p>" 
+    print += "<br />".html_safe 
+    print += "<p>#{content_array}</p>"
+  end
+
   def calendar_method(month, year)
 
     # Create a date based on the month and year that are passed to this action
@@ -60,9 +84,9 @@ module CalendarHelper
     cal += "<table border='1'><tr>"
 
     # Create an array that holds each day for the title row and distribute it
-    days = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
+    days = %w(Domingo Segunda Ter&ccedil;a Quarta Quinta Sexta S&aacute;bado)
     days.each do |day|
-      cal += "<td>#{day}</td>"
+      cal += "<td>#{day}</td>".html_safe
     end
 
     # Print out the empty days of the first week
@@ -76,6 +100,8 @@ module CalendarHelper
       this_date = (year_date += 1) 
       this_day = (the_day += 1)
       if this_date == actual_date
+        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+      elsif this_date == @test_day
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{this_day}</td>"
@@ -151,7 +177,7 @@ module CalendarHelper
     end
 
     cal += "</tr></table>"
-    cal += "<br />Month: #{month}<br />Year: #{year}<br />Date: #{current_date}<br />Days in the month: #{month_days}<br />Today: #{actual_date}"
+    cal += "<br />Month: #{month}<br />Year: #{year}<br />Date: #{current_date}<br />Days in the month: #{month_days}<br />Today: #{actual_date}<br />Number: #{@test_day}"
     return cal
   end
 

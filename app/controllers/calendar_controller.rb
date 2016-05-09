@@ -11,5 +11,10 @@ class CalendarController < ApplicationController
     if @year <= 1800
       @year = @time.strftime("%Y").to_i
     end
+
+    @tests = Test.all
   end
+
+  
+  
 end
