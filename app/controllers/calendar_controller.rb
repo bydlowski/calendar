@@ -15,6 +15,4 @@ class CalendarController < ApplicationController
     @tests = Test.all
   end
 
-  
-  
 end

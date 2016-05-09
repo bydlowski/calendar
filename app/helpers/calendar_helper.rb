@@ -1,13 +1,13 @@
 module CalendarHelper
 
-  def national
-    attr_accessor :test_day
-    national_array = [1, 84, 111, 121, 250, 285, 306, 319, 359]
-    @test_day = 121
-  end
+  def database(month, year, test)
 
-  def database(test)
+    test_day = 122
+    national_array = [1, 84, 111, 121, 250, 285, 306, 319, 359]
+    national_array_lp = [1, 85, 112, 122, 251, 286, 307, 320, 360]
+
     print = "<br />".html_safe
+    print += "AAA".html_safe
     array = []
     content_array = []
     test.each do |t|
@@ -17,14 +17,21 @@ module CalendarHelper
       content_array << a['content']
     end
     print += "<br />".html_safe 
-    print += "<p>#{array}</p>" 
+    print += "<p>Array: #{array}</p>" 
     print += "<br />".html_safe 
-    print += "<p>" + array[1]['content'] + "</p>" 
+    print += "<p>Content: " + array[1]['content'] + "</p>" 
     print += "<br />".html_safe 
     print += "<p>#{content_array}</p>"
+    return print
   end
 
-  def calendar_method(month, year)
+  def calendar_method(month, year, test)
+
+    # DATABASE TESTS
+
+    test_day = 122
+    national_array = [1, 84, 111, 121, 250, 285, 306, 319, 359]
+    national_array_lp = [1, 85, 112, 122, 251, 286, 307, 320, 360]
 
     # Create a date based on the month and year that are passed to this action
     # Example 2016 11 01
@@ -62,7 +69,7 @@ module CalendarHelper
     cal += link_to "#{prev_month} / #{prev_year}", calendar_path(month: prev_month, year: prev_year)
 
     # Space between links
-    cal += "&emsp;"
+    cal += " #{month} / #{year} "
 
     # Create a link to the next month
     # cal += link_to "#{next_month} / #{next_year}", "http://localhost:3000/?month=#{next_month}&year=#{next_year}"
@@ -101,8 +108,8 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif this_date == @test_day
-        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+      elsif national_array_lp.include?(this_date)
+        cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{this_day}</td>"
       end
@@ -116,6 +123,8 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+      elsif national_array_lp.include?(this_date)
+        cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{this_day}</td>"
       end
@@ -129,6 +138,8 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+      elsif national_array_lp.include?(this_date)
+        cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{this_day}</td>"
       end
@@ -142,6 +153,8 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+      elsif national_array_lp.include?(this_date)
+        cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{this_day}</td>"
       end
@@ -153,7 +166,15 @@ module CalendarHelper
       cal += "<tr>"
       7.times do
         if the_day < month_days
-          cal += "<td class='#{year_date += 1}'>#{the_day += 1}</td>"
+          this_date = (year_date += 1)
+          this_day = (the_day += 1)
+          if this_date == actual_date
+            cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+          elsif national_array_lp.include?(this_date)
+            cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
+          else
+            cal += "<td>#{this_day}</td>"
+          end
         else 
           the_day += 1
           cal += "<td>&nbsp;</td>"
@@ -167,7 +188,15 @@ module CalendarHelper
       cal += "<tr>"
       7.times do
         if the_day < month_days
-          cal += "<td class='#{year_date += 1}'>#{the_day += 1}</td>"
+          this_date = (year_date += 1)
+          this_day = (the_day += 1)
+          if this_date == actual_date
+            cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
+          elsif national_array_lp.include?(this_date)
+            cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
+          else
+            cal += "<td>#{this_day}</td>"
+          end
         else 
           the_day += 1
           cal += "<td>&nbsp;</td>"
@@ -177,8 +206,9 @@ module CalendarHelper
     end
 
     cal += "</tr></table>"
-    cal += "<br />Month: #{month}<br />Year: #{year}<br />Date: #{current_date}<br />Days in the month: #{month_days}<br />Today: #{actual_date}<br />Number: #{@test_day}"
+    cal += "<br />Month: #{month}<br />Year: #{year}<br />Date: #{current_date}<br />Days in the month: #{month_days}<br />Today: #{actual_date}<br />Number: #{current_date.yday}<br />Other Number: #{test_day}<br /><br />"
     return cal
+
   end
 
 end
