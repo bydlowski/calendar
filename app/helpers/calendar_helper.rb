@@ -1,27 +1,31 @@
 module CalendarHelper
 
-  def database(month, year, test)
+  def database(month, year, holiday)
 
     test_day = 122
     national_array = [1, 84, 111, 121, 250, 285, 306, 319, 359]
     national_array_lp = [1, 85, 112, 122, 251, 286, 307, 320, 360]
 
     print = "<br />".html_safe
-    print += "AAA".html_safe
     array = []
     content_array = []
-    test.each do |t|
+    holiday.each do |t|
       array << t
     end
     array.each do |a|
-      content_array << a['content']
+      content_array << a['holiday_date']
     end
+    first = Test.find(1)
+
+    print += "#{first['content']}" 
     print += "<br />".html_safe 
     print += "<p>Array: #{array}</p>" 
     print += "<br />".html_safe 
-    print += "<p>Content: " + array[1]['content'] + "</p>" 
+    print += "<p>First value of Content Array: " + array[0]['holiday_name'] + "</p>" 
     print += "<br />".html_safe 
-    print += "<p>#{content_array}</p>"
+    print += "<p>Content Array: #{content_array}</p>"
+    print += "<br />".html_safe 
+    print += "<p>AAA</p>"
     return print
   end
 

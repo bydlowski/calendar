@@ -13,6 +13,7 @@ class CalendarController < ApplicationController
     end
 
     @tests = Test.all
+    @holidays = Holiday1.all
   end
 
 end

@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509130106) do
+ActiveRecord::Schema.define(version: 20160509175109) do
+
+  create_table "holiday1s", force: :cascade do |t|
+    t.string   "holiday_city"
+    t.string   "holiday_city_full"
+    t.string   "holiday_name"
+    t.integer  "holiday_date"
+    t.integer  "holiday_date_ly"
+    t.boolean  "national"
+    t.boolean  "municipal"
+    t.boolean  "servidor"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "tests", force: :cascade do |t|
     t.text     "content"
