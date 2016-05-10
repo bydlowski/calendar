@@ -1,5 +1,25 @@
 module CalendarHelper
 
+  def easter_method(year)
+
+    a = year % 19
+    b = year / 100
+    c = year % 100
+    d = b / 4
+    e = b % 4
+    f = (b + 8) / 25
+    g = (b - f + 1) / 3
+    h = (19 * a + b - d - g + 15) % 30
+    i = c / 4
+    k = c % 4
+    l = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l) / 451
+    x = h + l - 7 * m + 114
+    month = x / 31
+    day = (x % 31) + 1
+    @easter_day = Date.new(year, month, day)
+  end
+
   def calendar_method(month, year, holiday)
 
     # DATABASE TESTS
@@ -229,17 +249,18 @@ module CalendarHelper
 
     # Create a numerical value based on a selected day, month and year
     # Example 2016 03 24
-    picked_date = Date.new(2015, 5, 1)
+    picked_date = Date.new(2015, 8, 1)
     picked_number = picked_date.yday
 
     # Create a numerical value based on the actual date
     # Example 2016 05 05 is 126
     actual_date = (Date.today).yday
+    # actual_date = picked_number
 
     # Get the current year
     # Example 2016 
     this_year = (Date.today).year
-    # this_year = 2018
+    # this_year = 2016
 
     # Check if the year is a leap year or not
     leap_year = Date.leap?(this_year)
@@ -253,6 +274,22 @@ module CalendarHelper
       md_day_num = first_of_may.yday + (14 - first_of_may.wday)
     end
 
+    # Father's day
+    first_of_august = Date.new(this_year, 8, 1)
+    fd_day_of_week = first_of_august.wday
+    if fd_day_of_week == 0
+      fd_day_num = first_of_august.yday + 7
+    else
+      fd_day_num = first_of_august.yday + (14 - first_of_august.wday)
+    end
+
+    # Christmas
+    xmas_day = Date.new(this_year, 12, 25)
+    xmas_day_num = xmas_day.yday
+
+    # Easter
+    easter_method(this_year)
+    easter_day_num = @easter_day.yday
 
     array = []
     national_array = []
@@ -296,13 +333,36 @@ module CalendarHelper
       hol += "<li>Hoje é dia das mães!</li>"
     elsif actual_date > md_day_num
       hol += "<li>Dia das Mães: Esse ano o dia das mães já passou.</li>"
+    elsif (md_day_num - actual_date == 1)
+      hol += "<li>Dia das Mães: o dia das mães é amanhã!</li>"
     else
       hol += "<li>Dia das Mães: Faltam #{md_day_num - actual_date} dias para o dia das mães.</li>"
     end
 
+    if fd_day_num == actual_date
+      hol += "<li>Hoje é dia dos pais!</li>"
+    elsif actual_date > fd_day_num
+      hol += "<li>Dia dos Pais: Esse ano o dia dos pais já passou.</li>"
+    elsif (fd_day_num - actual_date == 1)
+      hol += "<li>Dia das Pais: o dia dos pais é amanhã!</li>"
+    else
+      hol += "<li>Dia dos Pais: Faltam #{fd_day_num - actual_date} dias para o dia dos pais.</li>"
+    end
+
+    if xmas_day_num == actual_date
+      hol += "<li>Hoje é natal!</li>"
+    elsif actual_date > xmas_day_num
+      hol += "<li>Natal: Esse ano o natal já passou.</li>"
+    elsif (xmas_day_num - actual_date == 1)
+      hol += "<li>Natal: o natal é amanhã!</li>"
+    else
+      hol += "<li>Natal: Faltam #{xmas_day_num - actual_date} dias para o natal.</li>"
+    end
+
     hol += "</ul></div>" 
 
-    hol += "Today: #{actual_date}<br />Weekday of mothers Day: #{md_day_of_week}<br />Mother's Day: #{md_day_num}<br />"
+    hol += "Today: #{actual_date}<br />Today #: #{picked_number}<br />Weekday of mothers Day: #{md_day_of_week}<br />Mother's Day: #{md_day_num}<br />"
+    hol += "Weekday of fathers Day: #{fd_day_of_week}<br />Father's Day: #{fd_day_num}<br />Easter Day: #{easter_day_num}<br />"
     hol += "Year: #{this_year}<br />Leap?: #{leap_year}<br />All holidays: #{all_holidays}<br />Picked date: #{picked_date}<br />Picked number: #{picked_number}"
 
     return hol
