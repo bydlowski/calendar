@@ -2,4 +2,10 @@
 <%= calendar_method(@month, @year, @holidays).html_safe %>
 <%= all_holidays_method(@year, @holidays) %>
 <%= holidays_div_method(@holidays).html_safe %>
-<%= year_review_method(@holidays).html_safe %>
+<!--<% year_review_method(@holidays).html_safe %>-->
+<% link_to @prev_year, calendar_path(year: @prev_year), :remote => true %>
+<%= link_to @prev_year, year_review_path(year: @prev_year), :remote => true %>
+<%= render partial: 'calendar_grid', locals: {holidays: @holidays} %>
+
+
+

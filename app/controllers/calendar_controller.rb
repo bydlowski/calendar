@@ -14,6 +14,18 @@ class CalendarController < ApplicationController
 
     @tests = Test.all
     @holidays = Holiday1.all
+
+    @prev_year = @year - 1
+
+  end
+
+  def from_category
+    @selected = Holiday1.where(calendar_path(year: prev_year))
+    # @selected = Holiday1.where(:category_id => params[:cat_id])
+    # calendar_path(month: prev_month, year: prev_year)
+    respond_to do |format|
+        format.js
+    end
   end
 
 end

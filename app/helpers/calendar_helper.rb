@@ -368,12 +368,14 @@ module CalendarHelper
 
   end
 
-  def year_review_method(holiday)
-    year = ""
-    year = "<div>"
-    year = "</div>"
+  def year_review_method(year)
+    
+    div_year = ""
+    div_year += "<div>"
+    div_year += "Year: #{year}"
+    div_year += "</div>"
 
-    return year
+    return div_year
   end
 
 end
