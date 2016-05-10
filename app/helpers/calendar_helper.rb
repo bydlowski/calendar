@@ -20,26 +20,58 @@ module CalendarHelper
     @easter_day = Date.new(year, month, day)
   end
 
-  def calendar_method(month, year, holiday)
+  def all_holidays_method(year, holiday)
 
-    # DATABASE TESTS
+    # Create a numerical value based on a selected day, month and year
+    # Example 2016 03 24
+    picked_date = Date.new(2015, 8, 1)
+    picked_number = picked_date.yday   
+
+    # Check if the year is a leap year or not
+    leap_year = Date.leap?(year)
+
+    # Easter
+    easter_method(year)
+    easter_day_num = @easter_day.yday
+
+    # Good Friday
+    good_friday = easter_day_num - 2
+
+    # National holidays
+    if !leap_year
+      @national_array = [1, good_friday, 111, 121, 250, 285, 306, 319, 359]
+    else
+      @national_array = [1, (good_friday + 1), 112, 122, 251, 306, 319, 359]
+    end
 
     array = []
-    national_array = []
-    municipal_array = []
+    @municipal_array = []
     holiday.each do |t|
       array << t
     end
-    array.each do |a|
-      if a['national'] == true 
-        national_array << a['holiday_date_ly']
+
+    if leap_year
+      array.each do |a|
+        if a['municipal'] == true 
+          @municipal_array << a['holiday_date_ly'] 
+        end
+      end
+    else
+      array.each do |a|
+        if a['municipal'] == true 
+          @municipal_array << a['holiday_date'] 
+        end
       end
     end
-    array.each do |a|
-      if a['municipal'] == true 
-        municipal_array << a['holiday_date_ly'] 
-      end
-    end
+
+    @all_holidays = (@national_array.concat(@municipal_array)).sort
+    puts "All Holidays:" + @all_holidays.inspect
+
+  end
+
+  def calendar_method(month, year, holiday)
+
+    all_holidays_method(year, holiday)
 
     # Create a date based on the month and year that are passed to this action
     # Example 2016 11 01
@@ -121,9 +153,9 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
+      elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
+      elsif @municipal_array.include?(this_date)
         cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{this_day}</td>"
@@ -138,9 +170,9 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
+      elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
+      elsif @municipal_array.include?(this_date)
         cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{year_date} / #{this_day}</td>"
@@ -155,9 +187,9 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
+      elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
+      elsif @municipal_array.include?(this_date)
         cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{year_date} / #{this_day}</td>"
@@ -172,9 +204,9 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
+      elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
+      elsif @municipal_array.include?(this_date)
         cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{this_day}</td>"
@@ -191,9 +223,9 @@ module CalendarHelper
           this_day = (the_day += 1)
           if this_date == actual_date
             cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-          elsif national_array.include?(this_date)
+          elsif @national_array.include?(this_date)
             cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-          elsif municipal_array.include?(this_date)
+          elsif @municipal_array.include?(this_date)
             cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
           else
             cal += "<td>#{this_day}</td>"
@@ -215,9 +247,9 @@ module CalendarHelper
           this_day = (the_day += 1)
           if this_date == actual_date
             cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-          elsif national_array.include?(this_date)
+          elsif @national_array.include?(this_date)
             cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-          elsif municipal_array.include?(this_date)
+          elsif @municipal_array.include?(this_date)
             cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
           else
             cal += "<td>#{this_day}</td>"
@@ -245,12 +277,12 @@ module CalendarHelper
 
   end
 
-  def holiday_method(holiday)
+  def holidays_div_method(holiday)
 
     # Create a numerical value based on a selected day, month and year
     # Example 2016 03 24
     picked_date = Date.new(2015, 8, 1)
-    picked_number = picked_date.yday
+    picked_number = picked_date.yday 
 
     # Create a numerical value based on the actual date
     # Example 2016 05 05 is 126
@@ -261,9 +293,6 @@ module CalendarHelper
     # Example 2016 
     this_year = (Date.today).year
     # this_year = 2016
-
-    # Check if the year is a leap year or not
-    leap_year = Date.leap?(this_year)
 
     # Mother's day
     first_of_may = Date.new(this_year, 5, 1)
@@ -286,43 +315,6 @@ module CalendarHelper
     # Christmas
     xmas_day = Date.new(this_year, 12, 25)
     xmas_day_num = xmas_day.yday
-
-    # Easter
-    easter_method(this_year)
-    easter_day_num = @easter_day.yday
-
-    array = []
-    national_array = []
-    municipal_array = []
-    holiday.each do |t|
-      array << t
-    end
-
-    if leap_year
-      array.each do |a|
-        if a['national'] == true 
-          national_array << a['holiday_date_ly']
-        end
-      end
-        array.each do |a|
-        if a['municipal'] == true 
-          municipal_array << a['holiday_date_ly'] 
-        end
-      end
-    else
-      array.each do |a|
-        if a['national'] == true 
-          national_array << a['holiday_date']
-        end
-      end
-        array.each do |a|
-        if a['municipal'] == true 
-          municipal_array << a['holiday_date'] 
-        end
-      end
-    end
-
-    all_holidays = (national_array.concat(municipal_array)).sort
 
     mothers_day = " a"
 
@@ -361,12 +353,27 @@ module CalendarHelper
 
     hol += "</ul></div>" 
 
-    hol += "Today: #{actual_date}<br />Today #: #{picked_number}<br />Weekday of mothers Day: #{md_day_of_week}<br />Mother's Day: #{md_day_num}<br />"
-    hol += "Weekday of fathers Day: #{fd_day_of_week}<br />Father's Day: #{fd_day_num}<br />Easter Day: #{easter_day_num}<br />"
-    hol += "Year: #{this_year}<br />Leap?: #{leap_year}<br />All holidays: #{all_holidays}<br />Picked date: #{picked_date}<br />Picked number: #{picked_number}"
+    puts "Today: #{actual_date}"
+    puts "Today #: #{picked_number}"
+    puts "Weekday of mothers Day: #{md_day_of_week}"
+    puts "Mother's Day: #{md_day_num}"
+    puts "Weekday of fathers Day: #{fd_day_of_week}"
+    puts "Father's Day: #{fd_day_num}"
+    puts "Year: #{this_year}"
+    puts "All holidays: #{@all_holidays}"
+    puts "Picked date: #{picked_date}"
+    puts "Picked number: #{picked_number}"
 
     return hol
 
+  end
+
+  def year_review_method(holiday)
+    year = ""
+    year = "<div>"
+    year = "</div>"
+
+    return year
   end
 
 end

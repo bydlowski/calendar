@@ -1,3 +1,5 @@
 <h1>Calendar</h1>
 <%= calendar_method(@month, @year, @holidays).html_safe %>
-<%= holiday_method(@holidays).html_safe %>
+<%= all_holidays_method(@year, @holidays) %>
+<%= holidays_div_method(@holidays).html_safe %>
+<%= year_review_method(@holidays).html_safe %>
