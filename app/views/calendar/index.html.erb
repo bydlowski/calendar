@@ -3,7 +3,10 @@
 <%= all_holidays_method(@year, @holidays) %>
 <%= holidays_div_method(@holidays).html_safe %>
 
-<%= form_tag("/someajax", method: 'post', :remote => true) do %>
-<h1 id="from_category"></h1>
-<% end %>
-<%= render partial: 'from_category', locals: {holidays: @holidays} %>
+<div id="from_category">
+	<%= render :partial => "initial_category" %>
+</div>
+<%= link_to "2018", from_category_path, :method => :post, :remote => true %>
+<%= link_to "2017", from_category_path, { :method => :get, :remote => true} %>
+
+

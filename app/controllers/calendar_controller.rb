@@ -1,6 +1,6 @@
 class CalendarController < ApplicationController
-  respond_to :js, :html
-  protect_from_forgery except: :from_category
+  #respond_to :js, :html
+  # protect_from_forgery except: :from_category
 
   def index
     @time = Time.now
@@ -23,13 +23,17 @@ class CalendarController < ApplicationController
   end
 
   def from_category
-    
-    @selected = Holiday1.where(calendar_path(year: @prev_year))
-    @array_from_controller = Array.new
+
+    # @selected = Holiday1.where(calendar_path(year: @prev_year))
+    #@prev_year
     # respond_to :json, :html
-    # respond_to do |format|
-    #     format.js
-    # end
+    #respond_to do |format|
+    #    format.js { render partial: 'from_category' }
+    #end
+    respond_to do |format|
+        format.js
+    end
+
     # @selected = Holiday1.where(:category_id => params[:cat_id])
     # calendar_path(month: prev_month, year: prev_year)
   end
