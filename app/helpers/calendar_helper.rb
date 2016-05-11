@@ -79,10 +79,14 @@ module CalendarHelper
       end
     end
 
-    #@all_holidays = (@national_array.concat(@municipal_array)).sort
-    #@all_holidays = (@national_name_num_array.concat(@municipal_array)).sort
+    # Get all holidays by adding the national and municipal holidays
     @all_holidays = (@national_name_num_array + @municipal_array).sort
-    puts "All Holidays:" + @all_holidays.inspect
+    # Create an array with the day number of all the holidays
+    @all_holidays_num = @all_holidays.map {|x| (x[/\d+/]).to_i}
+    # Create an array with the name of all the holidays in the correct position
+    @all_holidays_text = []
+    @all_holidays.each {|x| @all_holidays_text << x.gsub(/\d\s?/, "")}
+
 
   end
 
@@ -333,7 +337,7 @@ module CalendarHelper
     xmas_day = Date.new(this_year, 12, 25)
     xmas_day_num = xmas_day.yday
 
-    mothers_day = " a"
+    #mothers_day = " a"
 
     hol = ""
     hol += "<div><ul>"
@@ -377,6 +381,8 @@ module CalendarHelper
     hol += "National Holidays with number: #{@national_name_num_array}<br />"
     hol += "Municipal Holidays with number: #{@municipal_array}<br />"
     hol += "All Holidays with number: #{@all_holidays}<br />"
+    hol += "All Holidays (number): #{@all_holidays_num}<br />"
+    hol += "All Holidays (text): #{@all_holidays_text}<br />"
 
     return hol
 
