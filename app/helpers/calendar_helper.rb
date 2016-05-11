@@ -315,6 +315,10 @@ module CalendarHelper
     this_year = (Date.today).year
     # this_year = 2016
 
+    # Get the current day
+    # Example 124 
+    this_day = (Date.today).yday
+
     # Mother's day
     first_of_may = Date.new(this_year, 5, 1)
     md_day_of_week = first_of_may.wday
@@ -337,7 +341,13 @@ module CalendarHelper
     xmas_day = Date.new(this_year, 12, 25)
     xmas_day_num = xmas_day.yday
 
-    #mothers_day = " a"
+    # Next holiday
+    next_hol = @all_holidays_num.min_by { |x| (x - this_day).abs } 
+    if next_hol < this_day
+      hol_index = @all_holidays_num.index(next_hol)
+      correct_hol_num = @all_holidays_num[hol_index + 1]
+      correct_hol_text = @all_holidays_text[hol_index + 1]
+    end
 
     hol = ""
     hol += "<div><ul>"
@@ -372,6 +382,14 @@ module CalendarHelper
       hol += "<li>Natal: Faltam #{xmas_day_num - actual_date} dias para o natal.</li>"
     end
 
+    if (correct_hol_num - this_day) > 1
+      hol += "<li>Faltam #{correct_hol_num - this_day} dias para o próximo feriado (#{correct_hol_text}).</li>"
+    elsif (correct_hol_num - this_day) == 1
+      hol += "<li>Falta 1 dia para o próximo feriado (#{correct_hol_text})!</li>"
+    else
+      hol += "<li>Hoje é um feriado (#{correct_hol_text})!</li>"
+    end
+
     hol += "</ul></div>" 
 
     hol += "Today: #{actual_date}<br />Today #: #{picked_number}<br />Weekday of mothers Day: #{md_day_of_week}<br />Mother's Day: #{md_day_num}<br />"
@@ -383,6 +401,9 @@ module CalendarHelper
     hol += "All Holidays with number: #{@all_holidays}<br />"
     hol += "All Holidays (number): #{@all_holidays_num}<br />"
     hol += "All Holidays (text): #{@all_holidays_text}<br />"
+    hol += "Next holiday number: #{next_hol}<br />"
+    hol += "Corrected holiday number: #{correct_hol_num}<br />"
+    hol += "Corrected holiday text: #{correct_hol_text}<br />"
 
     return hol
 
