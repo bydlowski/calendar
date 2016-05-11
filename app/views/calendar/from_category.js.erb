@@ -1,1 +1,2 @@
-$("#from_category").html("<h1><%= @this_year %></h1>");
+//$("#from_category").html("<h1><%= @this_year %></h1>");
+$("#from_category").html("<%= year_review_method(@this_year).html_safe  %>");

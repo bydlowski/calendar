@@ -23,22 +23,12 @@ class CalendarController < ApplicationController
   end
 
   def from_category
-    @year_2017 = 2017
-    @year_2018 = 2018
-    @this_year = params[:this_year]
 
-    # @selected = Holiday1.where(calendar_path(year: @prev_year))
-    #@prev_year
-    # respond_to :json, :html
-    #respond_to do |format|
-    #    format.js { render partial: 'from_category' }
-    #end
+    @this_year = params[:this_year]
     respond_to do |format|
         format.js
     end
 
-    # @selected = Holiday1.where(:category_id => params[:cat_id])
-    # calendar_path(month: prev_month, year: prev_year)
   end
 
 end
