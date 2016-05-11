@@ -6,7 +6,7 @@
 <div id="from_category">
 	<%= render :partial => "initial_category" %>
 </div>
-<%= link_to "2018", from_category_path, :method => :post, :remote => true %>
-<%= link_to "2017", from_category_path, { :method => :get, :remote => true} %>
+<%= link_to "2018", from_category_path, :method => :post, :remote => true, locals: {year: @year_2018} %>
+<%= link_to "2017", from_category_path, :method => :post, :remote => true, this_year: @year_2017 %>
 
 

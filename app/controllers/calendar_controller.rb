@@ -23,6 +23,8 @@ class CalendarController < ApplicationController
   end
 
   def from_category
+    @year_2017 = 2017
+    @year_2018 = 2018
 
     # @selected = Holiday1.where(calendar_path(year: @prev_year))
     #@prev_year
