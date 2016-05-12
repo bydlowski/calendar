@@ -355,7 +355,7 @@ module CalendarHelper
     if md_day_num == actual_date
       hol += "<li>Hoje é dia das mães!</li>"
     elsif actual_date > md_day_num
-      hol += "<li>Dia das Mães: Esse ano o dia das mães já passou.</li>"
+      hol += "<li>Dia das Mães: Esse ano o dia das mães já passou. Faltam #{365 + (md_day_num - actual_date)} dias para o próximo.</li>"
     elsif (md_day_num - actual_date == 1)
       hol += "<li>Dia das Mães: o dia das mães é amanhã!</li>"
     else
@@ -365,7 +365,7 @@ module CalendarHelper
     if fd_day_num == actual_date
       hol += "<li>Hoje é dia dos pais!</li>"
     elsif actual_date > fd_day_num
-      hol += "<li>Dia dos Pais: Esse ano o dia dos pais já passou.</li>"
+      hol += "<li>Dia dos Pais: Esse ano o dia dos pais já passou. Faltam #{365 + (fd_day_num - actual_date)} dias para o próximo.</li>"
     elsif (fd_day_num - actual_date == 1)
       hol += "<li>Dia das Pais: o dia dos pais é amanhã!</li>"
     else
