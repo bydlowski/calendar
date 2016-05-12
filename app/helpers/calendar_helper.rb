@@ -42,9 +42,9 @@ module CalendarHelper
 
     # National holiday numbers
     if !leap_year
-      @national_array = [1, carnival_day_num, good_friday, 111, 121, 250, 285, 306, 319, 359]
+      @national_array = [1, carnival_day_num, good_friday, @fd_day_num, 111, 121, 250, 285, 306, 319, 359]
     else
-      @national_array = [1, carnival_day_num, (good_friday + 1), 112, 122, 251, 286, 306, 319, 359]
+      @national_array = [1, carnival_day_num, good_friday, @fd_day_num, 112, 122, 251, 286, 307, 320, 360]
     end
 
     # National holidays string
@@ -86,6 +86,10 @@ module CalendarHelper
     # Create an array with the name of all the holidays in the correct position
     @all_holidays_text = []
     @all_holidays.each {|x| @all_holidays_text << x.gsub(/\d\s?/, "")}
+    # Create an array with the actua dates of all holidays in the specific year
+    first_this_year = Date.new(year, 1, 1) - 1
+    @all_holidays_dates = []
+    @all_holidays_num.each {|x| @all_holidays_dates << first_this_year + x}
 
 
   end
@@ -109,7 +113,7 @@ module CalendarHelper
 
     # Create a numerical value based on the actual date
     # Example 2016 05 05 is 126
-    actual_date = (Date.today).yday
+    actual_date_num = (Date.today).yday
 
     # Calculations for the previous month
     prev_month = month - 1
@@ -172,14 +176,14 @@ module CalendarHelper
     (7 - day_of_the_week).times do
       this_date = (year_date += 1) 
       this_day = (the_day += 1)
-      if this_date == actual_date
+      if this_date == actual_date_num
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
       elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
       elsif @municipal_array.include?(this_date)
         cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
       else
-        cal += "<td>#{this_day}</td>"
+        cal += "<td>#{year_date} / #{this_day}</td>"
       end
     end
     cal += "</tr>"
@@ -189,7 +193,7 @@ module CalendarHelper
     7.times do
       this_date = (year_date += 1) 
       this_day = (the_day += 1)
-      if this_date == actual_date
+      if this_date == actual_date_num
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
       elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
@@ -206,7 +210,7 @@ module CalendarHelper
     7.times do
       this_date = (year_date += 1) 
       this_day = (the_day += 1)
-      if this_date == actual_date
+      if this_date == actual_date_num
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
       elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
@@ -223,7 +227,7 @@ module CalendarHelper
     7.times do 
       this_date = (year_date += 1)
       this_day = (the_day += 1)
-      if this_date == actual_date
+      if this_date == actual_date_num
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
       elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
@@ -242,7 +246,7 @@ module CalendarHelper
         if the_day < month_days
           this_date = (year_date += 1)
           this_day = (the_day += 1)
-          if this_date == actual_date
+          if this_date == actual_date_num
             cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
           elsif @national_array.include?(this_date)
             cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
@@ -266,7 +270,7 @@ module CalendarHelper
         if the_day < month_days
           this_date = (year_date += 1)
           this_day = (the_day += 1)
-          if this_date == actual_date
+          if this_date == actual_date_num
             cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
           elsif @national_array.include?(this_date)
             cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
@@ -289,7 +293,7 @@ module CalendarHelper
     puts "Year: #{year}"
     puts "Date: #{current_date}"
     puts "Days in the month: #{month_days}"
-    puts "Today: #{actual_date}"
+    puts "Today: #{actual_date_num}"
     puts "Number: #{current_date.yday}"
     puts "Picked Date: #{picked_date}"
     puts "Picked Number: #{picked_number}"
@@ -307,8 +311,9 @@ module CalendarHelper
 
     # Create a numerical value based on the actual date
     # Example 2016 05 05 is 126
-    actual_date = (Date.today).yday
-    # actual_date = picked_number
+    #actual_date = Date.today
+    actual_date = Date.new(2015, 8, 1)
+    actual_date_num = actual_date.yday
 
     # Get the current year
     # Example 2016 
@@ -319,6 +324,10 @@ module CalendarHelper
     # Example 124 
     this_day = (Date.today).yday
 
+    # Firts of the year
+    first_this_year = Date.new(this_year, 1, 1) - 1
+    first_next_year = Date.new((this_year + 1), 1, 1) - 1
+
     # Mother's day
     first_of_may = Date.new(this_year, 5, 1)
     md_day_of_week = first_of_may.wday
@@ -327,14 +336,15 @@ module CalendarHelper
     else
       md_day_num = first_of_may.yday + (14 - first_of_may.wday)
     end
+    md_day = (first_this_year + md_day_num)
 
     # Father's day
     first_of_august = Date.new(this_year, 8, 1)
     fd_day_of_week = first_of_august.wday
     if fd_day_of_week == 0
-      fd_day_num = first_of_august.yday + 7
+      @fd_day_num = first_of_august.yday + 7
     else
-      fd_day_num = first_of_august.yday + (14 - first_of_august.wday)
+      @fd_day_num = first_of_august.yday + (14 - first_of_august.wday)
     end
 
     # Christmas
@@ -352,34 +362,36 @@ module CalendarHelper
     hol = ""
     hol += "<div><ul>"
     
-    if md_day_num == actual_date
+    if md_day_num == actual_date_num
       hol += "<li>Hoje é dia das mães!</li>"
-    elsif actual_date > md_day_num
-      hol += "<li>Dia das Mães: Esse ano o dia das mães já passou. Faltam #{365 + (md_day_num - actual_date)} dias para o próximo.</li>"
-    elsif (md_day_num - actual_date == 1)
+    elsif actual_date_num > md_day_num
+      hol += "<li>Dia das Mães: Esse ano o dia das mães já passou.</li>"
+    elsif (md_day_num - actual_date_num == 1)
       hol += "<li>Dia das Mães: o dia das mães é amanhã!</li>"
     else
-      hol += "<li>Dia das Mães: Faltam #{md_day_num - actual_date} dias para o dia das mães.</li>"
+      hol += "<li>Dia das Mães: Faltam #{md_day_num - actual_date_num} dias para o dia das mães.</li>"
     end
 
-    if fd_day_num == actual_date
+    hol += "<li>Easter: #{@easter_day}</li>"
+
+    if fd_day_num == actual_date_num
       hol += "<li>Hoje é dia dos pais!</li>"
-    elsif actual_date > fd_day_num
-      hol += "<li>Dia dos Pais: Esse ano o dia dos pais já passou. Faltam #{365 + (fd_day_num - actual_date)} dias para o próximo.</li>"
-    elsif (fd_day_num - actual_date == 1)
+    elsif actual_date_num > fd_day_num
+      hol += "<li>Dia dos Pais: Esse ano o dia dos pais já passou.</li>"
+    elsif (fd_day_num - actual_date_num == 1)
       hol += "<li>Dia das Pais: o dia dos pais é amanhã!</li>"
     else
-      hol += "<li>Dia dos Pais: Faltam #{fd_day_num - actual_date} dias para o dia dos pais.</li>"
+      hol += "<li>Dia dos Pais: Faltam #{fd_day_num - actual_date_num} dias para o dia dos pais.</li>"
     end
 
-    if xmas_day_num == actual_date
+    if xmas_day_num == actual_date_num
       hol += "<li>Hoje é natal!</li>"
-    elsif actual_date > xmas_day_num
+    elsif actual_date_num > xmas_day_num
       hol += "<li>Natal: Esse ano o natal já passou.</li>"
-    elsif (xmas_day_num - actual_date == 1)
+    elsif (xmas_day_num - actual_date_num == 1)
       hol += "<li>Natal: o natal é amanhã!</li>"
     else
-      hol += "<li>Natal: Faltam #{xmas_day_num - actual_date} dias para o natal.</li>"
+      hol += "<li>Natal: Faltam #{xmas_day_num - actual_date_num} dias para o natal.</li>"
     end
 
     if (correct_hol_num - this_day) > 1
@@ -392,7 +404,7 @@ module CalendarHelper
 
     hol += "</ul></div>" 
 
-    hol += "Today: #{actual_date}<br />Today #: #{picked_number}<br />Weekday of mothers Day: #{md_day_of_week}<br />Mother's Day: #{md_day_num}<br />"
+    hol += "Today: #{actual_date_num}<br />Today #: #{picked_number}<br />Weekday of mothers Day: #{md_day_of_week}<br />Mother's Day: #{md_day_num}<br />"
     hol += "Weekday of fathers Day: #{fd_day_of_week}<br />Father's Day: #{fd_day_num}<br />"
     hol += "Year: #{this_year}<br />Picked date: #{picked_date}<br />Picked number: #{picked_number}<br />"
     hol += "National Holidays (number): #{@national_array}<br />"
@@ -401,9 +413,10 @@ module CalendarHelper
     hol += "All Holidays with number: #{@all_holidays}<br />"
     hol += "All Holidays (number): #{@all_holidays_num}<br />"
     hol += "All Holidays (text): #{@all_holidays_text}<br />"
+    hol += "All Holidays (dates): #{@all_holidays_dates}<br />"
     hol += "Next holiday number: #{next_hol}<br />"
-    hol += "Corrected holiday number: #{correct_hol_num}<br />"
-    hol += "Corrected holiday text: #{correct_hol_text}<br />"
+    hol += "Corrected next holiday number: #{correct_hol_num}<br />"
+    hol += "Corrected next holiday text: #{correct_hol_text}<br />"
 
     return hol
 
