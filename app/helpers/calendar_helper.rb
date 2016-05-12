@@ -126,8 +126,11 @@ module CalendarHelper
     # Create an array with the actua dates of all holidays in the specific year
     all_holidays_dates = []
     all_holidays_num.each {|x| all_holidays_dates << first_this_year + x}
+    # Create an array with the day of the week of each holiday
+    all_holidays_day_of_week = []
+    all_holidays_dates.each {|x| all_holidays_day_of_week << x.wday}
 
-    return national_array, municipal_holidays, municipal_array, all_holidays, all_holidays_num, all_holidays_text, all_holidays_dates
+    return national_array, municipal_holidays, municipal_array, all_holidays, all_holidays_num, all_holidays_text, all_holidays_dates, all_holidays_day_of_week
 
   end
 
@@ -353,10 +356,8 @@ module CalendarHelper
 
     all_holidays_num = x[4]
     all_holidays_text = x[5]
-
-    # Get the current day
-    # Example 124 
-    this_day = (Date.today).yday
+    all_holidays_dates = x[6]
+    all_holidays_day_of_week = x[7]
 
     # Create a numerical value based on a selected day, month and year
     # Example 2016 03 24
@@ -365,10 +366,10 @@ module CalendarHelper
 
     # Create a numerical value based on the actual date
     # Example 2016 05 05 is 126
-    actual_date = Date.today
+    #actual_date = Date.today
     # Testing
-    #actual_date = Date.new(2015, 8, 1)
-    actual_date_num = actual_date.yday
+    actual_date = Date.new(2015, 9, 7)
+    actual_date_num = actual_date.yday + 1
 
     # Create a numerical value based on the actual year
     # Example 2016 is 2016
@@ -399,19 +400,33 @@ module CalendarHelper
     xmas_day_num = xmas_day.yday
 
     # Next holiday
-    next_hol = all_holidays_num.min_by { |x| (x - this_day).abs } 
-    if next_hol < actual_date_num
+    next_hol = all_holidays_num.min_by { |x| (x - actual_date_num).abs } 
+    if next_hol < actual_date_num 
+      hol_index = all_holidays_num.index(next_hol) + 1
+      correct_hol_num = all_holidays_num[hol_index]
+      correct_hol_text = all_holidays_text[hol_index]
+    else
       hol_index = all_holidays_num.index(next_hol)
-      correct_hol_num = all_holidays_num[hol_index + 1]
-      correct_hol_text = all_holidays_text[hol_index + 1]
+      correct_hol_num = all_holidays_num[hol_index]
+      correct_hol_text = all_holidays_text[hol_index]
     end
+
+    # Next 1 day weekend
+    all_holidays_day_of_week.drop(hol_index).each_with_index do |element, index|
+      @one_day_index = index
+      @one_day_elem = element
+      break if (element == 1 || element == 3 || element == 5)
+    end
+
+    # Next 2 day weekend
+
 
     hol = ""
     hol += "<div>"
     hol += "<h2>Dados sobre esse ano</h2>"
     hol += "<ul>"
-    hol += "<li>Esse é #{this_day}&ordm; dia do ano</li>"
-    hol += "<li>Faltam #{ Date.leap?(year) ? (366 - this_day) : (365 - this_day)} dias para acabar o ano</li>"
+    hol += "<li>Esse é #{actual_date_num}&ordm; dia do ano</li>"
+    hol += "<li>Faltam #{ Date.leap?(year) ? (366 - actual_date_num) : (365 - actual_date_num)} dias para acabar o ano</li>"
     hol += "</ul>"
 
     hol += "<h2>Festas</h2>"
@@ -451,15 +466,27 @@ module CalendarHelper
     hol += "<h2>Feriados</h2>"
     hol += "<ul>"
 
-    if (correct_hol_num - this_day) > 1
+    if (correct_hol_num - actual_date_num) > 1
       hol += "<li>Faltam #{correct_hol_num - actual_date_num} dias para o próximo feriado (#{correct_hol_text}).</li>"
-    elsif (correct_hol_num - this_day) == 1
+    elsif (correct_hol_num - actual_date_num) == 1
       hol += "<li>Falta 1 dia para o próximo feriado (#{correct_hol_text})!</li>"
     else
-      hol += "<li>Hoje é um feriado (#{correct_hol_text})!</li>"
+      hol += "<li>Hoje é um feriado (#{correct_hol_text})! Vamos descansar!</li>"
+    end
+
+    if (all_holidays_num[hol_index + @one_day_index] - actual_date_num) > 1
+      hol += "<li>O próximo feriado em dia útil é daqui a #{all_holidays_num[hol_index + @one_day_index]- actual_date_num} dias (#{all_holidays_text[hol_index + @one_day_index]})</li></li>"
+    elsif (correct_hol_num - actual_date_num) == 1
+      hol += "<li>O próximo feriado em dia útil é amanhã (#{all_holidays_text[hol_index + @one_day_index]})!</li>"
+    else
+      hol += "<li>Hoje é um feriado e é dia de semana (#{all_holidays_text[hol_index + @one_day_index]})!</li>"
     end
 
     hol += "</ul></div>" 
+
+    hol += "Holiday index: #{hol_index}<br />" 
+    hol += "One day element: #{@one_day_elem}<br />"
+    hol += "One day index: #{@one_day_index}<br />"
 
     return hol
 
