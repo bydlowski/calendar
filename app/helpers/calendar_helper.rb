@@ -354,10 +354,10 @@ module CalendarHelper
 
     x = all_holidays_method(year, holiday)
 
-    all_holidays_num = x[4]
+    all_holidays_num = x[4].push(10)
     all_holidays_text = x[5]
     all_holidays_dates = x[6]
-    all_holidays_day_of_week = x[7]
+    all_holidays_day_of_week = x[7].push(10)
 
     # Create a numerical value based on a selected day, month and year
     # Example 2016 03 24
@@ -366,9 +366,9 @@ module CalendarHelper
 
     # Create a numerical value based on the actual date
     # Example 2016 05 05 is 126
-    #actual_date = Date.today
+    actual_date = Date.today
     # Testing
-    actual_date = Date.new(2015, 9, 7)
+    #actual_date = Date.new(2015, 9, 2)
     actual_date_num = actual_date.yday + 1
 
     # Create a numerical value based on the actual year
@@ -415,11 +415,15 @@ module CalendarHelper
     all_holidays_day_of_week.drop(hol_index).each_with_index do |element, index|
       @one_day_index = index
       @one_day_elem = element
-      break if (element == 1 || element == 3 || element == 5)
+      break if (element == 1 || element == 3 || element == 5 || element == 10)
     end
 
     # Next 2 day weekend
-
+    all_holidays_day_of_week.drop(hol_index).each_with_index do |element, index|
+      @two_day_index = index
+      @two_day_elem = element
+      break if (element == 2 || element == 4 || element == 10)
+    end
 
     hol = ""
     hol += "<div>"
@@ -471,21 +475,34 @@ module CalendarHelper
     elsif (correct_hol_num - actual_date_num) == 1
       hol += "<li>Falta 1 dia para o próximo feriado (#{correct_hol_text})!</li>"
     else
-      hol += "<li>Hoje é um feriado (#{correct_hol_text})! Vamos descansar!</li>"
+      hol += "<li>Hoje é um feriado (#{correct_hol_text})!</li>"
     end
 
-    if (all_holidays_num[hol_index + @one_day_index] - actual_date_num) > 1
-      hol += "<li>O próximo feriado em dia útil é daqui a #{all_holidays_num[hol_index + @one_day_index]- actual_date_num} dias (#{all_holidays_text[hol_index + @one_day_index]})</li></li>"
+    if (@one_day_elem == 10)
+      hol += "<li>Não temos mais feriados de um dia nesse ano :(</li>"
+    elsif (all_holidays_num[hol_index + @one_day_index] - actual_date_num) > 1
+      hol += "<li>O próximo feriado de um dia que cai em dia útil é daqui a #{all_holidays_num[hol_index + @one_day_index]- actual_date_num} dias (#{all_holidays_text[hol_index + @one_day_index]} - #{all_holidays_dates[hol_index + @one_day_index].strftime('%d/%m')})</li>"
     elsif (correct_hol_num - actual_date_num) == 1
       hol += "<li>O próximo feriado em dia útil é amanhã (#{all_holidays_text[hol_index + @one_day_index]})!</li>"
     else
-      hol += "<li>Hoje é um feriado e é dia de semana (#{all_holidays_text[hol_index + @one_day_index]})!</li>"
+      hol += "<li>Hoje é um feriado e é dia de semana (#{all_holidays_text[hol_index + @one_day_index]})! Vamos descansar!</li>"
+    end
+
+    if (@one_day_elem == 10)
+      hol += "<li>Não temos mais feriados de dois dias nesse ano :(</li>"
+    elsif (all_holidays_num[hol_index + @two_day_index] - actual_date_num) > 1
+      hol += "<li>O próximo feriado de dois dias que cai em dia útil é daqui a #{all_holidays_num[hol_index + @two_day_index]- actual_date_num} dias (#{all_holidays_text[hol_index + @two_day_index]} - #{all_holidays_dates[hol_index + @two_day_index].strftime('%d/%m')})</li>"
+    elsif (correct_hol_num - actual_date_num) == 1
+      hol += "<li>O próximo feriado em dia útil é amanhã (#{all_holidays_text[hol_index + @two_day_index]})!</li>"
+    else
+      hol += "<li>Hoje é um feriado e é dia de semana (#{all_holidays_text[hol_index + @two_day_index]})! Vamos descansar!</li>"
     end
 
     hol += "</ul></div>" 
 
     hol += "Holiday index: #{hol_index}<br />" 
-    hol += "One day element: #{@one_day_elem}<br />"
+    hol += "Day of the week array: #{all_holidays_day_of_week}<br />"
+    hol += "Two day element: #{@two_day_elem}<br />"
     hol += "One day index: #{@one_day_index}<br />"
 
     return hol
