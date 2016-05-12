@@ -8,7 +8,7 @@
 <%= link_to "2017", from_category_path(this_year: 2017), :method => :post, :remote => true %>
 <%= link_to "2018", from_category_path(this_year: 2018), :method => :post, :remote => true %>
 <div id="from_category">
-	<%= render :partial => "initial_category" %>
+	<%= year_review_method(2016, @holidays).html_safe %>
 </div>
 
 

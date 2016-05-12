@@ -509,10 +509,29 @@ module CalendarHelper
 
   end
 
-  def year_review_method(year)
+  def year_review_method(year, holiday)
+
+    array = []
+    municipal_holidays = []
+    holiday.each do |t|
+      array << t
+    end
+    array.each do |a|
+      if a['municipal'] == true 
+        municipal_holidays << a['holiday_date_ly']
+      end
+    end
+
+    y = all_holidays_method(year, holiday)
+
+    #all_holidays_num = x[4]
+    #all_holidays_text = x[5]
+    all_holidays_dates = y[6]
+    #all_holidays_day_of_week = x[7]
     
     div_year = ""
     div_year += "<div>"
+    div_year += "#{all_holidays_dates}<br />"
     div_year += "Year: #{year}"
     div_year += "</div>"
 
