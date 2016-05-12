@@ -1,8 +1,8 @@
 <h1>Calendar</h1>
 <%= calendar_method(@month, @year, @holidays).html_safe %>
 <h1>Holidays</h1>
-
-<%= holidays_div_method.html_safe %>
+<%= all_holidays_method(2016, @holidays) %>
+<%= holidays_div_method(@holidays).html_safe %>
 <h1>Year Review</h1>
 <%= link_to "2016", from_category_path(this_year: 2016), :method => :post, :remote => true %>
 <%= link_to "2017", from_category_path(this_year: 2017), :method => :post, :remote => true %>

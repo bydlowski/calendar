@@ -27,29 +27,38 @@ module CalendarHelper
     picked_date = Date.new(2015, 8, 1)
     picked_number = picked_date.yday 
 
+    # Get the current year
+    # Example 2016 
+    @this_year = (Date.today).year
+    # this_year = 2016
+
+    # Get the current day
+    # Example 124 
+    @this_day = (Date.today).yday  
+
     # Check if the year is a leap year or not
     leap_year = Date.leap?(year)
 
     # Firts of the year
-    first_this_year = Date.new(year, 1, 1) - 1
-    first_next_year = Date.new((year + 1), 1, 1) - 1
+    first_this_year = Date.new(@this_year, 1, 1) - 1
+    first_next_year = Date.new((@this_year + 1), 1, 1) - 1
 
     # Mother's day
-    first_of_may = Date.new(year, 5, 1)
+    first_of_may = Date.new(@this_year, 5, 1)
     md_day_of_week = first_of_may.wday
     if md_day_of_week == 0
-      md_day_num = first_of_may.yday + 7
+      @md_day_num = first_of_may.yday + 7
     else
-      md_day_num = first_of_may.yday + (14 - first_of_may.wday)
+      @md_day_num = first_of_may.yday + (14 - first_of_may.wday)
     end
 
     # Father's day
-    first_of_august = Date.new(year, 8, 1)
+    first_of_august = Date.new(@this_year, 8, 1)
     fd_day_of_week = first_of_august.wday
     if fd_day_of_week == 0
-      fd_day_num = first_of_august.yday + 7
+      @fd_day_num = first_of_august.yday + 7
     else
-      fd_day_num = first_of_august.yday + (14 - first_of_august.wday)
+      @fd_day_num = first_of_august.yday + (14 - first_of_august.wday)
     end
 
     # Easter
@@ -64,26 +73,25 @@ module CalendarHelper
 
     # National holiday numbers
     if !leap_year
-      national_array = [1, carnival_day_num, good_friday, 111, 121, md_day_num, fd_day_num, 250, 285, 306, 319, 359]
+      @national_array = [1, carnival_day_num, good_friday, 111, 121, @md_day_num, @fd_day_num, 250, 285, 306, 319, 359]
     else
-      national_array = [1, carnival_day_num, good_friday, 112, 122, md_day_num, fd_day_num, 251, 286, 307, 320, 360]
+      @national_array = [1, carnival_day_num, good_friday, 112, 122, @md_day_num, @fd_day_num, 251, 286, 307, 320, 360]
     end
 
     # National holidays string
-    national_array_string = []
-    national_array.each do |a|
-      national_array_string << sprintf('%03d', a)
+    @national_array_string = []
+    @national_array.each do |a|
+      @national_array_string << sprintf('%03d', a)
     end
 
     # National holiday names
     national_names_array = ['Confraternização Universal', 'Carnaval', 'Sexta-feira Santa', 'Tiradentes', 'Dia do trabalho', 'Dia das Mães', 'Dia do Pais', 'Independência do Brasil', 'Dia de nossa Senhora', 'Finados', 'Proclamação da República', 'Natal']
 
     # National holidays with name
-    national_name_num_array = national_array_string.zip(national_names_array).map(&:join)
+    @national_name_num_array = @national_array_string.zip(national_names_array).map(&:join)
 
     array = []
-    municipal_array = []
-    municipal_holidays = []
+    @municipal_array = []
     holiday.each do |t|
       array << t
     end
@@ -91,52 +99,33 @@ module CalendarHelper
     if leap_year
       array.each do |a|
         if a['municipal'] == true 
-          municipal_holidays << a['holiday_date_ly']
+          @municipal_array << "#{sprintf('%03d', a['holiday_date_ly'])}#{a['holiday_name']}"
         end
       end
     else
       array.each do |a|
         if a['municipal'] == true 
-          municipal_holidays << a['holiday_date']
-        end
-      end
-    end
-
-    if leap_year
-      array.each do |a|
-        if a['municipal'] == true 
-          municipal_array << "#{sprintf('%03d', a['holiday_date_ly'])}#{a['holiday_name']}"
-        end
-      end
-    else
-      array.each do |a|
-        if a['municipal'] == true 
-          municipal_array << "#{sprintf('%03d', a['holiday_date'])}#{a['holiday_name']}"
+          @municipal_array << "#{sprintf('%03d', a['holiday_date'])}#{a['holiday_name']}"
         end
       end
     end
 
     # Get all holidays by adding the national and municipal holidays
-    all_holidays = (national_name_num_array + municipal_array).sort
+    @all_holidays = (@national_name_num_array + @municipal_array).sort
     # Create an array with the day number of all the holidays
-    all_holidays_num = all_holidays.map {|x| (x[/\d+/]).to_i}
+    @all_holidays_num = @all_holidays.map {|x| (x[/\d+/]).to_i}
     # Create an array with the name of all the holidays in the correct position
-    all_holidays_text = []
-    all_holidays.each {|x| all_holidays_text << x.gsub(/\d\s?/, "")}
+    @all_holidays_text = []
+    @all_holidays.each {|x| @all_holidays_text << x.gsub(/\d\s?/, "")}
     # Create an array with the actua dates of all holidays in the specific year
-    all_holidays_dates = []
-    all_holidays_num.each {|x| all_holidays_dates << first_this_year + x}
-
-    return national_array, municipal_holidays, municipal_array, all_holidays, all_holidays_num, all_holidays_text, all_holidays_dates
+    @all_holidays_dates = []
+    @all_holidays_num.each {|x| @all_holidays_dates << first_this_year + x}
 
   end
 
   def calendar_method(month, year, holiday)
 
-    x = all_holidays_method(year, holiday)
-
-    national_array = x[0]
-    municipal_array = x[1]
+    all_holidays_method(year, holiday)
 
     # Create a date based on the month and year that are passed to this action
     # Example 2016 11 01
@@ -218,9 +207,9 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date_num
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
+      elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
+      elsif @municipal_array.include?(this_date)
         cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{year_date} / #{this_day}</td>"
@@ -235,9 +224,9 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date_num
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
+      elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
+      elsif @municipal_array.include?(this_date)
         cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{year_date} / #{this_day}</td>"
@@ -252,9 +241,9 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date_num
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
+      elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
+      elsif @municipal_array.include?(this_date)
         cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{year_date} / #{this_day}</td>"
@@ -269,9 +258,9 @@ module CalendarHelper
       this_day = (the_day += 1)
       if this_date == actual_date_num
         cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
+      elsif @national_array.include?(this_date)
         cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
+      elsif @municipal_array.include?(this_date)
         cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
       else
         cal += "<td>#{year_date} / #{this_day}</td>"
@@ -288,9 +277,9 @@ module CalendarHelper
           this_day = (the_day += 1)
           if this_date == actual_date_num
             cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-          elsif national_array.include?(this_date)
+          elsif @national_array.include?(this_date)
             cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-          elsif municipal_array.include?(this_date)
+          elsif @municipal_array.include?(this_date)
             cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
           else
             cal += "<td>#{year_date} / #{this_day}</td>"
@@ -312,9 +301,9 @@ module CalendarHelper
           this_day = (the_day += 1)
           if this_date == actual_date_num
             cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-          elsif national_array.include?(this_date)
+          elsif @national_array.include?(this_date)
             cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-          elsif municipal_array.include?(this_date)
+          elsif @municipal_array.include?(this_date)
             cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
           else
             cal += "<td>#{year_date} / #{this_day}</td>"
@@ -342,21 +331,7 @@ module CalendarHelper
 
   end
 
-  def holidays_div_method(holiday)
-
-    # Get the current year
-    # Example 2016 
-    year = (Date.today).year
-    # this_year = 2016
-
-    x = all_holidays_method(year, holiday)
-
-    all_holidays_num = x[4]
-    all_holidays_text = x[5]
-
-    # Get the current day
-    # Example 124 
-    this_day = (Date.today).yday
+  def holidays_div_method
 
     # Create a numerical value based on a selected day, month and year
     # Example 2016 03 24
@@ -376,65 +351,41 @@ module CalendarHelper
     # Testing
     #actual_year = 2017
 
-    # Mother's day
-    first_of_may = Date.new(year, 5, 1)
-    md_day_of_week = first_of_may.wday
-    if md_day_of_week == 0
-      md_day_num = first_of_may.yday + 7
-    else
-      md_day_num = first_of_may.yday + (14 - first_of_may.wday)
-    end
-
-    # Father's day
-    first_of_august = Date.new(year, 8, 1)
-    fd_day_of_week = first_of_august.wday
-    if fd_day_of_week == 0
-      fd_day_num = first_of_august.yday + 7
-    else
-      fd_day_num = first_of_august.yday + (14 - first_of_august.wday)
-    end
-
     # Christmas
-    xmas_day = Date.new(year, 12, 25)
+    xmas_day = Date.new(@this_year, 12, 25)
     xmas_day_num = xmas_day.yday
 
     # Next holiday
-    next_hol = all_holidays_num.min_by { |x| (x - this_day).abs } 
+    next_hol = @all_holidays_num.min_by { |x| (x - @this_day).abs } 
     if next_hol < actual_date_num
-      hol_index = all_holidays_num.index(next_hol)
-      correct_hol_num = all_holidays_num[hol_index + 1]
-      correct_hol_text = all_holidays_text[hol_index + 1]
+      hol_index = @all_holidays_num.index(next_hol)
+      correct_hol_num = @all_holidays_num[hol_index + 1]
+      correct_hol_text = @all_holidays_text[hol_index + 1]
     end
 
     hol = ""
-    hol += "<div>"
-    hol += "<h2>Dados sobre esse ano</h2>"
-    hol += "<ul>"
-    hol += "<li>Esse é #{this_day}&ordm; dia do ano</li>"
-    hol += "<li>Faltam #{ Date.leap?(year) ? (366 - this_day) : (365 - this_day)} dias para acabar o ano</li>"
-    hol += "</ul>"
-
-    hol += "<h2>Festas</h2>"
-    hol += "<ul>"
+    hol += "<div><ul>"
     
-    if md_day_num == actual_date_num
+    if @md_day_num == actual_date_num
       hol += "<li>Hoje é dia das mães!</li>"
-    elsif actual_date_num > md_day_num
+    elsif actual_date_num > @md_day_num
       hol += "<li>Dia das Mães: Esse ano o dia das mães já passou.</li>"
-    elsif (md_day_num - actual_date_num == 1)
+    elsif (@md_day_num - actual_date_num == 1)
       hol += "<li>Dia das Mães: o dia das mães é amanhã!</li>"
     else
-      hol += "<li>Dia das Mães: Faltam #{md_day_num - actual_date_num} dias para o dia das mães.</li>"
+      hol += "<li>Dia das Mães: Faltam #{@md_day_num - actual_date_num} dias para o dia das mães.</li>"
     end
 
-    if fd_day_num == actual_date_num
+    hol += "<li>Next hole: #{next_hol}</li>"
+
+    if @fd_day_num == actual_date_num
       hol += "<li>Hoje é dia dos pais!</li>"
-    elsif actual_date_num > fd_day_num
+    elsif actual_date_num > @fd_day_num
       hol += "<li>Dia dos Pais: Esse ano o dia dos pais já passou.</li>"
-    elsif (fd_day_num - actual_date_num == 1)
+    elsif (@fd_day_num - actual_date_num == 1)
       hol += "<li>Dia das Pais: o dia dos pais é amanhã!</li>"
     else
-      hol += "<li>Dia dos Pais: Faltam #{fd_day_num - actual_date_num} dias para o dia dos pais.</li>"
+      hol += "<li>Dia dos Pais: Faltam #{@fd_day_num - actual_date_num} dias para o dia dos pais.</li>"
     end
 
     if xmas_day_num == actual_date_num
@@ -447,11 +398,7 @@ module CalendarHelper
       hol += "<li>Natal: Faltam #{xmas_day_num - actual_date_num} dias para o natal.</li>"
     end
 
-    hol += "</ul>"
-    hol += "<h2>Feriados</h2>"
-    hol += "<ul>"
-
-    if (correct_hol_num - this_day) > 1
+    if (correct_hol_num - @this_day) > 1
       hol += "<li>Faltam #{correct_hol_num - actual_date_num} dias para o próximo feriado (#{correct_hol_text}).</li>"
     elsif (correct_hol_num - this_day) == 1
       hol += "<li>Falta 1 dia para o próximo feriado (#{correct_hol_text})!</li>"
@@ -460,6 +407,20 @@ module CalendarHelper
     end
 
     hol += "</ul></div>" 
+
+    hol += "Today: #{actual_date_num}<br />Today #: #{picked_number}<br />Mother's Day: #{@md_day_num}<br />"
+    hol += "Father's Day: #{@fd_day_num}<br />"
+    hol += "Year: #{@this_year}<br />Picked date: #{picked_date}<br />Picked number: #{picked_number}<br />"
+    hol += "National Holidays (number): #{@national_array}<br />"
+    hol += "National Holidays with number: #{@national_name_num_array}<br />"
+    hol += "Municipal Holidays with number: #{@municipal_array}<br />"
+    hol += "All Holidays with number: #{@all_holidays}<br />"
+    hol += "All Holidays (number): #{@all_holidays_num}<br />"
+    hol += "All Holidays (text): #{@all_holidays_text}<br />"
+    hol += "All Holidays (dates): #{@all_holidays_dates}<br />"
+    hol += "Next holiday number: #{next_hol}<br />"
+    hol += "Corrected next holiday number: #{correct_hol_num}<br />"
+    hol += "Corrected next holiday text: #{correct_hol_text}<br />"
 
     return hol
 
