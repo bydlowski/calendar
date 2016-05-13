@@ -519,9 +519,10 @@ module CalendarHelper
     #all_holidays_day_of_week = x[7]
     
     div_year = ""
+    div_year += "<h3>Year: #{year}</h3>"
     div_year += "<div>"
     div_year += "#{all_holidays_dates}<br />"
-    div_year += "Year: #{year}"
+
     div_year += "</div>"
 
     return div_year
