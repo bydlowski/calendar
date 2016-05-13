@@ -511,17 +511,6 @@ module CalendarHelper
 
   def year_review_method(year, holiday)
 
-    array = []
-    municipal_holidays = []
-    holiday.each do |t|
-      array << t
-    end
-    array.each do |a|
-      if a['municipal'] == true 
-        municipal_holidays << a['holiday_date_ly']
-      end
-    end
-
     y = all_holidays_method(year, holiday)
 
     #all_holidays_num = x[4]
