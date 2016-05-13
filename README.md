@@ -7,4 +7,4 @@ It was adapted from a Community College Tutorial I found on YouTube and I have m
 
 The objecitve is to have a functional calendar that displays some useful information (besides the dates).
 
-It should, for example, display in which days some holidays will fall on.
+It should, for example, display in which days some holidays will fall on. It will also be possible to check out how many holidays tehre will be on other years.
