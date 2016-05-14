@@ -530,11 +530,42 @@ module CalendarHelper
     all_holidays_dates = y[6] #OK
     all_holidays_day_of_week = y[7] #OK
 
+    # 1 day holidays
+    one_day_count = 0
+    one_day_indexes = []
+    all_holidays_day_of_week.each_with_index do |element, key|
+      if (element == 1 || element == 3 || element == 5)
+        one_day_count += 1
+        one_day_indexes << key
+      end
+    end
+    if one_day_indexes.length == 0
+      one_day_dates = "Nesse ano não teremos feriados prolongados :("
+    elsif one_day_indexes.length == 1
+      one_day_dates = "Nesse ano teremos um feriado de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')})"
+    elsif one_day_indexes.length == 2
+      one_day_dates = "Nesse ano teremos dois feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')})"
+    elsif one_day_indexes.length == 3
+      one_day_dates = "Nesse ano teremos três feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[2]].strftime('%d/%m')})"
+    elsif one_day_indexes.length == 4
+      one_day_dates = "Nesse ano teremos quatro feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[2]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[3]].strftime('%d/%m')})"
+    elsif one_day_indexes.length == 5
+      one_day_dates = "Nesse ano teremos cinco feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[2]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[3]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[4]].strftime('%d/%m')})"
+    elsif one_day_indexes.length == 6
+      one_day_dates = "Nesse ano teremos seis feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[2]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[3]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[4]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[5]].strftime('%d/%m')})"
+    elsif one_day_indexes.length == 7
+      one_day_dates = "Nesse ano teremos sete feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[2]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[3]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[4]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[5]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[6]].strftime('%d/%m')})"
+    elsif one_day_indexes.length == 8
+      one_day_dates = "Nesse ano teremos oito feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[2]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[3]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[4]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[5]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[6]].strftime('%d/%m')}) e #{all_holidays_dates[one_day_indexes[7]].strftime('%d/%m')})"
+    else 
+      one_day_dates = "Nesse ano teremos mais que cinco feriados prolongados!!"
+    end
+
     # 2 day holidays
     two_day_count = 0
     two_day_indexes = []
     all_holidays_day_of_week.each_with_index do |element, key|
-      if (element == 2)
+      if (element == 2 || element == 4)
         two_day_count += 1
         two_day_indexes << key
       end
@@ -545,9 +576,26 @@ module CalendarHelper
       two_day_dates = "Nesse ano teremos um feriado prolongado (#{all_holidays_dates[two_day_indexes[0]].strftime('%d/%m')})"
     elsif two_day_indexes.length == 2
       two_day_dates = "Nesse ano teremos dois feriados prolongados (#{all_holidays_dates[two_day_indexes[0]].strftime('%d/%m')} e #{all_holidays_dates[two_day_indexes[1]].strftime('%d/%m')})"
+    elsif two_day_indexes.length == 3
+      two_day_dates = "Nesse ano teremos três feriados prolongados (#{all_holidays_dates[two_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[two_day_indexes[1]].strftime('%d/%m')} e #{all_holidays_dates[two_day_indexes[2]].strftime('%d/%m')})"
+    elsif two_day_indexes.length == 4
+      two_day_dates = "Nesse ano teremos quatro feriados prolongados (#{all_holidays_dates[two_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[two_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[two_day_indexes[2]].strftime('%d/%m')} e #{all_holidays_dates[two_day_indexes[3]].strftime('%d/%m')})"
+    elsif two_day_indexes.length == 5
+      two_day_dates = "Nesse ano teremos cinco feriados prolongados (#{all_holidays_dates[two_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[two_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[two_day_indexes[2]].strftime('%d/%m')}, #{all_holidays_dates[two_day_indexes[3]].strftime('%d/%m')} e #{all_holidays_dates[two_day_indexes[4]].strftime('%d/%m')})"
     else 
-      two_day_dates = "AA"
+      two_day_dates = "Nesse ano teremos mais que cinco feriados prolongados!!"
     end
+
+    # Christmas day
+    weekdays_array = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"]
+    xmas_index = 0
+    all_holidays_num.each_with_index do |element, key|
+      if (element == 359 || element == 360)
+        xmas_index = key
+      end
+    end
+    xmas_weekday = all_holidays_day_of_week[xmas_index]
+    xmas_weekday_text = weekdays_array[xmas_weekday]
 
 
 
@@ -555,6 +603,8 @@ module CalendarHelper
     div_year += ""
     div_year += "<div>"
     div_year += "<h3>Fatos sobre #{year}</h3>"
+    div_year += "<p>Nesse ano o natal cairá em #{(xmas_weekday == 0 || xmas_weekday == 6) ? "um" : "uma"} #{xmas_weekday_text}.</p>"
+    div_year += "<p>#{one_day_dates}</p>"
     div_year += "<p>#{two_day_dates}</p>"
     div_year += "<p></p>"
     div_year += "<p></p>"
@@ -563,7 +613,7 @@ module CalendarHelper
 
     div_year += "</div>"
 
-    div_year += "<p>Day numbers (all): #{national_array}</p>"
+    div_year += "<p>Day numbers (all): #{all_holidays_num}</p>"
     div_year += "<p>Dates (all): #{all_holidays_dates}</p>"
     div_year += "<p>Days of the week (all): #{all_holidays_day_of_week}</p>"
     div_year += "<p>two_day_indexes: #{two_day_indexes}</p>"
