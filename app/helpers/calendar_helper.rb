@@ -83,6 +83,7 @@ module CalendarHelper
 
     array = []
     municipal_array = []
+    municipal_text = []
     municipal_holidays = []
     holiday.each do |t|
       array << t
@@ -99,6 +100,13 @@ module CalendarHelper
         if a['municipal'] == true 
           municipal_holidays << a['holiday_date']
         end
+      end
+    end
+
+
+    array.each do |a|
+      if a['municipal'] == true 
+        municipal_text << a['holiday_name']
       end
     end
 
@@ -130,7 +138,7 @@ module CalendarHelper
     all_holidays_day_of_week = []
     all_holidays_dates.each {|x| all_holidays_day_of_week << x.wday}
 
-    return national_array, municipal_holidays, municipal_array, all_holidays, all_holidays_num, all_holidays_text, all_holidays_dates, all_holidays_day_of_week
+    return national_array, municipal_holidays, municipal_text, all_holidays, all_holidays_num, all_holidays_text, all_holidays_dates, all_holidays_day_of_week
 
   end
 
@@ -513,20 +521,21 @@ module CalendarHelper
 
     y = all_holidays_method(year, holiday)
 
-    national_array = y[0]
-    municipal_holidays = y[1]
-    municipal_array = y[2]
-    all_holidays = y[3]
-    all_holidays_num = y[4]
+    national_array = y[0] #OK
+    municipal_holidays = y[1] #OK
+    municipal_text = y[2] 
+    all_holidays = y[3] 
+    all_holidays_num = y[4] #OK
     all_holidays_text = y[5]
-    all_holidays_dates = y[6]
-    all_holidays_day_of_week = y[7]
+    all_holidays_dates = y[6] #OK
+    all_holidays_day_of_week = y[7] #OK
 
     div_year = ""
     div_year += ""
     div_year += "<div>"
     div_year += "<h3>#{year} facts</h3>"
-    div_year += "<p>Num: #{municipal_array}</p>"
+    div_year += "<p>Num: #{national_array}</p>"
+    div_year += "<p>Num: #{all_holidays_dates}</p>"
     div_year += "<p>Text: #{all_holidays_day_of_week}</p>"
 
 
