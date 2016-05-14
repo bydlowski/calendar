@@ -1,5 +1,42 @@
 module CalendarHelper
 
+  # How many long holidays
+    two_day_hol = 0
+    two_day_hol_info = []
+    all_holidays_day_of_week.each_with_index do |index, element|
+      if (element == 2 || element == 4)
+        two_day_hol_info << "#{all_holidays_text[index]} - #{(all_holidays_dates[index]).strftime('%d/%m')}"
+        two_day_hol += 1
+      end
+    end
+
+    # Holiday text
+    two_hol_length = two_day_hol_info.length
+    if two_hol_length == 0
+      two_day_hol_text = "Não teremos feriados de dois dias nesse ano :("
+    elsif two_hol_length == 1
+      two_day_hol_text = "#{two_day_hol_info[0]}"
+    elsif two_hol_length == 2
+      two_day_hol_text = "#{two_day_hol_info[0]} e #{two_day_hol_info[1]}"
+    elsif two_hol_length == 3
+      two_day_hol_text = "#{two_day_hol_info[0]}, #{two_day_hol_info[1]} e #{two_day_hol_info[2]}"
+    end
+   
+    div_year = ""
+    div_year += ""
+    div_year += "<div>"
+    div_year += "<h3>#{year} facts</h3>"
+    div_year += "<p>Número de feriados prolongados: #{two_day_hol}</p>"
+    div_year += "<p>Quais são os feriados prolongados: #{two_day_hol_text}</p>"
+    div_year += "#{all_holidays_dates}<br />"
+
+    div_year += "</div>"
+    div_year += "#{two_day_hol_info}<br />"  
+
+
+
+
+
   def easter_method(year)
 
     a = year % 19
