@@ -118,8 +118,6 @@ module CalendarHelper
       end
     end
 
-    
-
     array.each do |a|
       if a['municipal'] == true 
         municipal_text << a['holiday_name']

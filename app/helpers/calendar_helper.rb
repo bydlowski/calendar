@@ -523,23 +523,51 @@ module CalendarHelper
 
     national_array = y[0] #OK
     municipal_holidays = y[1] #OK
-    municipal_text = y[2] 
+    @municipal_text = y[2] 
     all_holidays = y[3] 
     all_holidays_num = y[4] #OK
     all_holidays_text = y[5]
     all_holidays_dates = y[6] #OK
     all_holidays_day_of_week = y[7] #OK
 
+    # 2 day holidays
+    two_day_count = 0
+    two_day_indexes = []
+    all_holidays_day_of_week.each_with_index do |element, key|
+      if (element == 2)
+        two_day_count += 1
+        two_day_indexes << key
+      end
+    end
+    if two_day_indexes.length == 0
+      two_day_dates = "Nesse ano não teremos feriados prolongados :("
+    elsif two_day_indexes.length == 1
+      two_day_dates = "Nesse ano teremos um feriado prolongado (#{all_holidays_dates[two_day_indexes[0]].strftime('%d/%m')})"
+    elsif two_day_indexes.length == 2
+      two_day_dates = "Nesse ano teremos dois feriados prolongados (#{all_holidays_dates[two_day_indexes[0]].strftime('%d/%m')} e #{all_holidays_dates[two_day_indexes[1]].strftime('%d/%m')})"
+    else 
+      two_day_dates = "AA"
+    end
+
+
+
     div_year = ""
     div_year += ""
     div_year += "<div>"
-    div_year += "<h3>#{year} facts</h3>"
-    div_year += "<p>Num: #{national_array}</p>"
-    div_year += "<p>Num: #{all_holidays_dates}</p>"
-    div_year += "<p>Text: #{all_holidays_day_of_week}</p>"
+    div_year += "<h3>Fatos sobre #{year}</h3>"
+    div_year += "<p>#{two_day_dates}</p>"
+    div_year += "<p></p>"
+    div_year += "<p></p>"
+    div_year += "<p></p>"
 
 
     div_year += "</div>"
+
+    div_year += "<p>Day numbers (all): #{national_array}</p>"
+    div_year += "<p>Dates (all): #{all_holidays_dates}</p>"
+    div_year += "<p>Days of the week (all): #{all_holidays_day_of_week}</p>"
+    div_year += "<p>two_day_indexes: #{two_day_indexes}</p>"
+    div_year += "<p>two_day_count: #{two_day_count}</p>"
 
 
     return div_year

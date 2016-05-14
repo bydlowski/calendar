@@ -25,8 +25,8 @@ class CalendarController < ApplicationController
   def from_category
 
     @this_year = params[:this_year]
-    @ball = "aaa"
     @holidays = Holiday1.all
+
     respond_to do |format|
         format.js
         format.html
