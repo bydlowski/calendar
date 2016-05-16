@@ -155,8 +155,12 @@ module CalendarHelper
 
     # Create a numerical value based on a selected day, month and year
     # Example 2016 03 24
-    picked_date = Date.new(2015, 1, 20)
-    picked_number = picked_date.yday  
+    picked_date = Date.new(2015, 3, 27)
+    picked_number = picked_date.yday
+    picked_date_leap = Date.new(2016, 5, 26)
+    picked_number_leap = picked_number + 61 
+    #picked_date_leap = Date.new(2016, 1, 25)
+    #picked_number_leap = picked_date_leap.yday
 
     # Create a numerical value based on the date selected in the above variable
     # Example 2016 11 01 is 306
@@ -344,10 +348,10 @@ module CalendarHelper
     puts "Year: #{year}"
     puts "Date: #{current_date}"
     puts "Days in the month: #{month_days}"
-    puts "Today: #{actual_date_num}"
-    puts "Number: #{current_date.yday}"
     puts "Picked Date: #{picked_date}"
     puts "Picked Number: #{picked_number}"
+    puts "Picked Date: #{picked_date_leap}"
+    puts "Picked Number: #{picked_number_leap}"
     
     return cal
 
@@ -508,11 +512,6 @@ module CalendarHelper
 
     hol += "</ul></div>" 
 
-    hol += "Holiday index: #{hol_index}<br />" 
-    hol += "Day of the week array: #{all_holidays_day_of_week}<br />"
-    hol += "Two day element: #{@two_day_elem}<br />"
-    hol += "One day index: #{@one_day_index}<br />"
-
     return hol
 
   end
@@ -608,13 +607,6 @@ module CalendarHelper
     div_year += "<p></p>"
     div_year += "<p></p>"
     div_year += "</div>"
-    div_year += "<p>National Array: #{national_array}</p>"
-    div_year += "<p>Municipal Array: #{municipal_holidays}</p>"
-    div_year += "<p>Day numbers (all): #{all_holidays_num}</p>"
-    div_year += "<p>Dates (all): #{all_holidays_dates}</p>"
-    div_year += "<p>Days of the week (all): #{all_holidays_day_of_week}</p>"
-    div_year += "<p>two_day_indexes: #{two_day_indexes}</p>"
-    div_year += "<p>two_day_count: #{two_day_count}</p>"
 
     return div_year
   end
