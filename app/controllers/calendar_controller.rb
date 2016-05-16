@@ -15,7 +15,6 @@ class CalendarController < ApplicationController
       @year = @time.strftime("%Y").to_i
     end
 
-    @tests = Test.all
     @holidays = Holiday1.all
 
     @prev_year = @year - 1
