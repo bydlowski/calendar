@@ -118,7 +118,7 @@ module CalendarHelper
       end
     else
       array.each do |a|
-        if a['municipal'] == @city 
+        if a['holiday_city'] == @city 
           municipal_array << "#{sprintf('%03d', a['holiday_date'])}#{a['holiday_name']}"
         end
       end
@@ -523,10 +523,10 @@ module CalendarHelper
 
     national_array = y[0] #OK
     municipal_holidays = y[1] #OK
-    @municipal_text = y[2] 
-    all_holidays = y[3] 
+    #municipal_text = y[2] 
+    #all_holidays = y[3] 
     all_holidays_num = y[4] #OK
-    all_holidays_text = y[5]
+    #all_holidays_text = y[5]
     all_holidays_dates = y[6] #OK
     all_holidays_day_of_week = y[7] #OK
 
@@ -597,10 +597,8 @@ module CalendarHelper
     xmas_weekday = all_holidays_day_of_week[xmas_index]
     xmas_weekday_text = weekdays_array[xmas_weekday]
 
-
-
     div_year = ""
-    div_year += ""
+    div_year += "@city is: #{@city}"
     div_year += "<div>"
     div_year += "<h3>Fatos sobre #{year}</h3>"
     div_year += "<p>Nesse ano o natal cairá em #{(xmas_weekday == 0 || xmas_weekday == 6) ? "um" : "uma"} #{xmas_weekday_text}.</p>"
@@ -609,16 +607,14 @@ module CalendarHelper
     div_year += "<p></p>"
     div_year += "<p></p>"
     div_year += "<p></p>"
-
-
     div_year += "</div>"
-
+    div_year += "<p>National Array: #{national_array}</p>"
+    div_year += "<p>Municipal Array: #{municipal_holidays}</p>"
     div_year += "<p>Day numbers (all): #{all_holidays_num}</p>"
     div_year += "<p>Dates (all): #{all_holidays_dates}</p>"
     div_year += "<p>Days of the week (all): #{all_holidays_day_of_week}</p>"
     div_year += "<p>two_day_indexes: #{two_day_indexes}</p>"
     div_year += "<p>two_day_count: #{two_day_count}</p>"
-
 
     return div_year
   end

@@ -37,21 +37,17 @@ class CalendarController < ApplicationController
 
   def city
 
-    respond_to do |format|
-        format.js
-        format.html
-    end
-
   end
 
   def from_category
 
     @this_year = params[:this_year]
-    #@holidays = Holiday1.all
-    @city = params['calendar_path']['city']
+    @holidays = Holiday1.where('holiday_city' == @city)
+    @city = params[:city]
 
     respond_to do |format|
-        format.js
+      format.html
+      format.js
     end
 
   end

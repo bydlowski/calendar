@@ -1,5 +1,27 @@
 module CalendarHelper
 
+
+
+  def new
+
+    
+
+
+
+    div_year = ""
+
+
+    
+
+  end
+
+
+
+
+
+
+
+
   # How many long holidays
     two_day_hol = 0
     two_day_hol_info = []

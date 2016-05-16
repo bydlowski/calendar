@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '(:year(/:month))' => "calendar#index", as: "calendar_index"
   post '/' => "calendar#index", as: "calendar"
   # get '(:year/:month/:day)' => 'calendar#from_category', as: 'year_review', :defaults => { :format => 'js'}
-  post '/ok' => 'calendar#from_category', as: "from_category"
+  post '/a' => 'calendar#from_category', as: "from_category"
   get 'logout' => 'calendar#logout', as: "logout"
   # get '/', to: 'calendar#from_category', as: 'year_review', :defaults => { :format => 'json'}
 
