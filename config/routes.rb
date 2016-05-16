@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
   # get 'calendar/index'
   # get ':year/:month' => "calendar#index", as: "calendar"
-  get '(:year(/:month))' => "calendar#index", as: "calendar"
+  get '(:year(/:month))' => "calendar#index", as: "calendar_index"
+  post '/' => "calendar#index", as: "calendar"
   # get '(:year/:month/:day)' => 'calendar#from_category', as: 'year_review', :defaults => { :format => 'js'}
-  post '/' => 'calendar#from_category', as: "from_category"
+  post '/ok' => 'calendar#from_category', as: "from_category"
   # get '/', to: 'calendar#from_category', as: 'year_review', :defaults => { :format => 'json'}
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'calendar#index'
+  #root 'calendar#index'
+  root 'calendar#city'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

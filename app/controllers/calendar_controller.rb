@@ -3,6 +3,7 @@ class CalendarController < ApplicationController
   # protect_from_forgery except: :from_category
 
   def index
+
     @time = Time.now
     # @month = 2
     @month = params['month'].to_i
@@ -21,6 +22,15 @@ class CalendarController < ApplicationController
 
   end
 
+  def city
+
+    respond_to do |format|
+        format.js
+        format.html
+    end
+
+  end
+
   def from_category
 
     @this_year = params[:this_year]
@@ -28,7 +38,6 @@ class CalendarController < ApplicationController
 
     respond_to do |format|
         format.js
-        format.html
     end
 
   end
