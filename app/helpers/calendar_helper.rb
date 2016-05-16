@@ -114,7 +114,7 @@ module CalendarHelper
       end
     end
 
-    if (@city == 'saopaulo')
+    if (@city != 'riodejaneiro')
       municipal_holidays << corpus_christi_num
       municipal_text << corpus_christi_name
       municipal_array << "#{sprintf('%03d', corpus_christi_num)}#{corpus_christi_name}"
@@ -165,12 +165,10 @@ module CalendarHelper
 
     # Create a numerical value based on a selected day, month and year
     # Example 2016 03 24
-    picked_date = Date.new(2015, 3, 27)
+    picked_date = Date.new(2015, 9, 20)
     picked_number = picked_date.yday
-    picked_date_leap = Date.new(2016, 5, 26)
-    picked_number_leap = picked_number + 61 
-    #picked_date_leap = Date.new(2016, 1, 25)
-    #picked_number_leap = picked_date_leap.yday
+    picked_date_leap = Date.new(2016, 9, 20)
+    picked_number_leap = picked_date_leap.yday
 
     # Create a numerical value based on the date selected in the above variable
     # Example 2016 11 01 is 306
@@ -565,7 +563,7 @@ module CalendarHelper
     elsif one_day_indexes.length == 7
       one_day_dates = "Nesse ano teremos sete feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[2]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[3]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[4]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[5]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[6]].strftime('%d/%m')})"
     elsif one_day_indexes.length == 8
-      one_day_dates = "Nesse ano teremos oito feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[2]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[3]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[4]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[5]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[6]].strftime('%d/%m')}) e #{all_holidays_dates[one_day_indexes[7]].strftime('%d/%m')})"
+      one_day_dates = "Nesse ano teremos oito feriados de um dia (#{all_holidays_dates[one_day_indexes[0]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[1]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[2]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[3]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[4]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[5]].strftime('%d/%m')}, #{all_holidays_dates[one_day_indexes[6]].strftime('%d/%m')} e #{all_holidays_dates[one_day_indexes[7]].strftime('%d/%m')})"
     else 
       one_day_dates = "Nesse ano teremos mais que cinco feriados prolongados!!"
     end
