@@ -91,13 +91,13 @@ module CalendarHelper
 
     if leap_year
       array.each do |a|
-        if a['municipal'] == true 
+        if a['holiday_city'] == @city 
           municipal_holidays << a['holiday_date_ly']
         end
       end
     else
       array.each do |a|
-        if a['municipal'] == true 
+        if a['holiday_city'] == @city 
           municipal_holidays << a['holiday_date']
         end
       end
@@ -105,20 +105,20 @@ module CalendarHelper
 
 
     array.each do |a|
-      if a['municipal'] == true 
+      if a['holiday_city'] == @city  
         municipal_text << a['holiday_name']
       end
     end
 
     if leap_year
       array.each do |a|
-        if a['municipal'] == true 
+        if a['holiday_city'] == @city  
           municipal_array << "#{sprintf('%03d', a['holiday_date_ly'])}#{a['holiday_name']}"
         end
       end
     else
       array.each do |a|
-        if a['municipal'] == true 
+        if a['municipal'] == @city 
           municipal_array << "#{sprintf('%03d', a['holiday_date'])}#{a['holiday_name']}"
         end
       end
@@ -187,14 +187,14 @@ module CalendarHelper
 
     # Create a link to the previous month
     # cal += link_to "#{prev_month} / #{prev_year}", "http://localhost:3000/?month=#{prev_month}&year=#{prev_year}"
-    cal += link_to "#{prev_month} / #{prev_year}", calendar_path(month: prev_month, year: prev_year)
+    cal += link_to "#{prev_month} / #{prev_year}", calendar_index_path(month: prev_month, year: prev_year, city: @city)
 
     # Space between links
     cal += " #{month} / #{year} "
 
     # Create a link to the next month
     # cal += link_to "#{next_month} / #{next_year}", "http://localhost:3000/?month=#{next_month}&year=#{next_year}"
-    cal += link_to "#{next_month} / #{next_year}", calendar_path(month: next_month, year: next_year)
+    cal += link_to "#{next_month} / #{next_year}", calendar_index_path(month: next_month, year: next_year, city: @city)
 
     # Print out the month of the passed date
     cal += "<h2>#{current_date.strftime("%B")} / #{current_date.strftime("%Y")}</h2>"

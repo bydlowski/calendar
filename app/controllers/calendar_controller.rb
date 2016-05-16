@@ -4,7 +4,15 @@ class CalendarController < ApplicationController
 
   def index
 
-    @city = params['calendar_path']['city']
+    if (params['city'] == nil)
+      @city = params['calendar_path']['city']
+    elsif (params['city'] == 'logout')
+      redirect_to '/'
+    elsif (params['city'])
+      @city = params['city']
+    else
+      redirect_to '/'
+    end
 
     @time = Time.now
     # @month = 2
@@ -18,7 +26,8 @@ class CalendarController < ApplicationController
       @year = @time.strftime("%Y").to_i
     end
 
-    @holidays = Holiday1.all
+    @holidays = Holiday1.where('holiday_city' == @city)
+    #@holidays = Holiday1.all
 
     @prev_year = @year - 1
 
@@ -36,11 +45,22 @@ class CalendarController < ApplicationController
   def from_category
 
     @this_year = params[:this_year]
-    @holidays = Holiday1.all
+    #@holidays = Holiday1.all
+    @city = params['calendar_path']['city']
 
     respond_to do |format|
         format.js
     end
+
+  end
+
+  def logout
+
+    #@this_year = params[:this_year]
+    #@holidays = Holiday1.all
+    #@city = params['calendar_path']['city']
+
+    redirect_to 'calendar#city'
 
   end
 

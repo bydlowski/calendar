@@ -2,6 +2,8 @@
 <%= form_for (:calendar_path) do |form| %>
 	<p>
 	<%= form.label 'Selecione uma cidade'  %>:
+	<%= form.radio_button :city, 'n' %>
+	<%= form.label 'Nenhuma' %>
 	<%= form.radio_button :city, 'riodejaneiro' %>
 	<%= form.label 'Rio de Janeiro' %>
 	<%= form.radio_button :city, 'belohorizonte' %>
