@@ -62,6 +62,10 @@ module CalendarHelper
     # Carnival
     carnival_day_num = easter_day_num - 47
 
+    # Corpus Christi
+    corpus_christi_num = easter_day_num + 60
+    corpus_christi_name = 'Corpus Christi'
+
     # National holiday numbers
     if !leap_year
       national_array = [1, carnival_day_num, good_friday, 111, 121, md_day_num, fd_day_num, 250, 285, 306, 319, 359]
@@ -108,6 +112,12 @@ module CalendarHelper
       if a['holiday_city'] == @city  
         municipal_text << a['holiday_name']
       end
+    end
+
+    if (@city == 'saopaulo')
+      municipal_holidays << corpus_christi_num
+      municipal_text << corpus_christi_name
+      municipal_array << "#{sprintf('%03d', corpus_christi_num)}#{corpus_christi_name}"
     end
 
     if leap_year
