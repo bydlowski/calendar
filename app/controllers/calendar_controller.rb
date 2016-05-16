@@ -4,6 +4,8 @@ class CalendarController < ApplicationController
 
   def index
 
+    @city = params['calendar_path']['city']
+
     @time = Time.now
     # @month = 2
     @month = params['month'].to_i
