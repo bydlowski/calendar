@@ -17,3 +17,5 @@
 #rj09 = Holiday1.create(holiday_city: 'rj', holiday_city_full: 'Rio de Janeiro', holiday_name: 'Natal' , holiday_date: 359, holiday_date_ly: 360, national: true, municipal: false, servidor: false)
 #rj10 = Holiday1.create(holiday_city: 'rj', holiday_city_full: 'Rio de Janeiro', holiday_name: 'Dia de São Jorge' , holiday_date: 83, holiday_date_ly: 84, national: false, municipal: true, servidor: false)
 #rj11 = Holiday1.create(holiday_city: 'rj', holiday_city_full: 'Rio de Janeiro', holiday_name: 'Dia de São Sebastião' , holiday_date: 20, holiday_date_ly: 20, national: false, municipal: true, servidor: false)
+city1 = Holiday1.create(holiday_city: 'riodejaneiro', holiday_city_full: 'Rio de Janeiro', holiday_name: 'Dia de São Sebastião' , holiday_date: 20, holiday_date_ly: 20, national: false, municipal: true, servidor: false)
+city2 = Holiday1.create(holiday_city: 'riodejaneiro', holiday_city_full: 'Rio de Janeiro', holiday_name: 'Dia de São Jorge' , holiday_date: 113, holiday_date_ly: 114, national: false, municipal: true, servidor: false)
