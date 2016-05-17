@@ -3,21 +3,26 @@ development:
   encoding: unicode
   database: databasename
   pool: 5
-  username: pedrobyd
+  username: postgres
   password: secret
+  host: localhost
+  port: 5432
 
 test:
   adapter: sqlite3
   encoding: unicode
   database: testdatabasename
   pool: 5
-  username: pedrobyd
+  username: postgres
   password: secret
+  host: localhost
 
 production:
   adapter: postgresql
   encoding: unicode
   database: productiondatabasename
   pool: 5
-  username: pedrobyd
+  username: postgres
   password: secret
+  host: localhost
+  port: 5432
