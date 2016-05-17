@@ -4,9 +4,13 @@ class CalendarController < ApplicationController
 
   def index
 
-    if (params['calendar_path'] || params['city'])
+    city_array = ['logout', 'n', 'belohorizonte', 'portoalegre', 'riodejaneiro', 'saopaulo']
+
+    if (params['calendar_city_path'] || params['city'])
       if (params['city'] == nil)
-        @city = params['calendar_path']['city']
+        @city = params['calendar_city_path']['city']
+      elsif (city_array.exclude?(params['city']))
+        @city = 'n'
       elsif (params['city'] == 'logout')
         redirect_to '/'
       else 

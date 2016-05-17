@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   #get '(:year(/:month))' => "calendar#index", as: "calendar_index"
   get ':city(/:year(/:month))' => "calendar#index", as: "calendar_index"
   post '/' => "calendar#index", as: "calendar"
-  post ':city' => "calendar#index", as: "calendar_city"
+  #post '/:city' => "calendar#index", as: "calendar_city"
   # get '(:year/:month/:day)' => 'calendar#from_category', as: 'year_review', :defaults => { :format => 'js'}
   #post '/a' => 'calendar#from_category', as: "from_category"
   post ':city' => 'calendar#from_category', as: "from_category"

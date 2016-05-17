@@ -1,19 +1,17 @@
 module CalendarHelper
 
 
-
-  def new
-
-    
-
-
-
-    div_year = ""
-
-
-    
-
-  end
+  if (params['calendar_path'] || params['city'])
+      if (params['city'] == nil)
+        @city = params['calendar_path']['city']
+      elsif (params['city'] == 'logout')
+        redirect_to '/'
+      else 
+        @city = params['city']
+      end
+    else
+      redirect_to '/'
+    end
 
 
 
