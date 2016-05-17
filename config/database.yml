@@ -1,20 +1,20 @@
 development:
-  adapter: sqlite3
+  adapter: postgresql
   encoding: unicode
   database: databasename
   pool: 5
-  username: postgres
-  password: secret
+  username: <%= Rails.application.secrets.database_username %>
+  password: <%= Rails.application.secrets.database_password %>
   host: localhost
   port: 5432
 
 test:
-  adapter: sqlite3
+  adapter: postgresql
   encoding: unicode
   database: testdatabasename
   pool: 5
-  username: postgres
-  password: secret
+  username: <%= Rails.application.secrets.database_username %>
+  password: <%= Rails.application.secrets.database_password %>
   host: localhost
 
 production:
@@ -22,7 +22,7 @@ production:
   encoding: unicode
   database: productiondatabasename
   pool: 5
-  username: postgres
-  password: secret
+  username: <%= Rails.application.secrets.database_username %>
+  password: <%= Rails.application.secrets.database_password %>
   host: localhost
   port: 5432
