@@ -18,3 +18,4 @@
 
 # Ignore excel files
 *.xlsx
+helperbackup.rb
