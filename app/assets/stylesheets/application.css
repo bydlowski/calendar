@@ -16,6 +16,8 @@
 
 body {
 	font-family: 'Lato', sans-serif;
+	margin: 0;
+	color: gray;
 }
 /*  SECTIONS  */
 .section {
@@ -50,6 +52,14 @@ body {
 }
 .span_1_of_4 {
 	width: 24.25%;
+}
+
+/*  GRID OF FIVE  */
+.span_2_of_5 {
+	width: 39%;
+}
+.span_1_of_5 {
+	width: 20%;
 }
 
 /*  GO FULL WIDTH BELOW 480 PIXELS */

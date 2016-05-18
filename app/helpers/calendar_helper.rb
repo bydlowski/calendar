@@ -373,7 +373,7 @@ module CalendarHelper
     end
 
     cal += "</tr></table>"
-    cal += "<div class='legenda'>Legenda:<br /><p class='legenda-verm'>&nbsp;</p><p class='legenda-text'>Feriado</p><p class='legenda-cinza'>&nbsp;</p><p class='legenda-text'>Hoje</p></div>"
+    cal += "<div class='legenda-text'><p>Legenda:</p><p class='leg lverm'>&nbsp;</p><p>Feriado</p><p class='leg lcinza'>&nbsp;</p><p>Hoje</p></div>"
     cal += "</div>"
 
     puts "Month: #{month}"
@@ -413,7 +413,7 @@ module CalendarHelper
     actual_date = Date.today
     # Testing
     #actual_date = Date.new(2015, 9, 2)
-    actual_date_num = actual_date.yday + 1
+    actual_date_num = actual_date.yday 
 
     # Create a numerical value based on the actual year
     # Example 2016 is 2016

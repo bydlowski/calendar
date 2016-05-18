@@ -3,23 +3,39 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .sidebar-main {
-	background-color: cyan;
+	background-color: darkgray;
+	color: white;
+	height: 100vh;
 }
-/*.top {
-	padding-top: 1.5em;
-}*/
 .titles {
 	text-align: center;
-	padding-top: 1.5em;
+	h1, {
+		vertical-align: middle;
+		font-size: 5vmax;
+	}
+	a {		
+		font-size: 1.5vmax;
+	}
+	h2 {
+		font-size: 2vmax;
+	}
+}
+.dates-main {
+	display: inline;
+	a, h2 {
+		vertical-align: 0;
+		position: relative;
+		top: 50%;
+	}
 }
 .dates-main h2 {
 	display: inline;
-	margin: 0 1em;
+	margin: 0 1vw;
 }
-.city-info {
-	position: absolute;
-	top: 1em;
-	right: 1em;
+.title-city p {
+	vertical-align: middle;
+	position: relative;
+	/*top: 50%;*/
 }
 .calendar-div {
 	margin: 2vw;
@@ -61,22 +77,24 @@ table {
 	background-color: red;
 	color: white;
 }
-.legenda {
-	margin: 1vh 0;
-}
 .legenda-text {
-	float: left;
+	margin: 1vh 0;
+	p {
+		float: left;
+	}
 }
-.legenda-verm {
-	background-color: red;
+.leg {
 	width: 2vw;
 	float: left;
-	margin-right: 1vw;
-}
-.legenda-cinza {
-	background-color: lightgray;
-	width: 2vw;
-	float: left;
-	margin-right: 1vw;
 	margin-left: 1vw;
+	margin-right: 1vw;
+}
+.lverm {
+	background-color: red;
+}
+.lcinza {
+	background-color: lightgray;
+}
+.calendar-main {
+	height: 10vh;
 }
