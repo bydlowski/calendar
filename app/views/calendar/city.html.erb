@@ -3,15 +3,15 @@
 	<p>
 	<%= form.label 'Selecione uma cidade'  %>:
 	<%= form.radio_button :city, 'n' %>
-	<%= form.label 'Nenhuma' %>
+	<%= form.label :city, 'Nenhuma' %>
 	<%= form.radio_button :city, 'belohorizonte' %>
-	<%= form.label 'Belo Horizonte' %>
+	<%= form.label :city, 'Belo Horizonte'  %>
 	<%= form.radio_button :city, 'portoalegre' %>
-	<%= form.label 'Porto Alegre' %>
+	<%= form.label :city, 'Porto Alegre' %>
   <%= form.radio_button :city, 'riodejaneiro' %>
-	<%= form.label 'Rio de Janeiro' %>
+	<%= form.label :city, 'Rio de Janeiro'%>
 	<%= form.radio_button :city, 'saopaulo' %>
-	<%= form.label 'São Paulo' %>
+	<%= form.label :city, 'São Paulo' %>
 	</p>
 	<%= form.submit "OK" %>
 <% end %>
