@@ -6,9 +6,13 @@ class CalendarController < ApplicationController
 
     city_array = ['logout', 'n', 'belohorizonte', 'portoalegre', 'riodejaneiro', 'saopaulo']
 
+    
+
     if (params['calendar_city_path'] || params['city'])
       if (params['city'] == nil)
-        @city = params['calendar_city_path']['city']
+        city_param_array = params['calendar_city_path']['city'].split(",")
+        @city = city_param_array[0]
+        session[:city_full_a] = city_param_array[1]
       elsif (city_array.exclude?(params['city']))
         @city = 'n'
       elsif (params['city'] == 'logout')
@@ -34,8 +38,6 @@ class CalendarController < ApplicationController
 
     @holidays = Holiday1.where('holiday_city' == @city)
     #@holidays = Holiday1.all
-    fullcitybefore = Holiday1.where('holiday_city' == @city)
-    @fullcity = fullcitybefore[0]['holiday_city_full']
 
     @prev_year = @year - 1
 

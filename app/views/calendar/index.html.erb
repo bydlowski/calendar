@@ -8,7 +8,7 @@
 				<%= dates_method(@month, @year, @holidays).html_safe %>
 			</div>
 			<div class="col span_1_of_5 titles title-city">
-				<p><%= "#{@fullcity}" %><br /><%=  link_to "Mudar cidade", logout_path(city: 'logout') %></p>
+				<p><%= "#{session[:city_full_a]}" %><br /><%=  link_to "Mudar cidade", logout_path(city: 'logout') %></p>
 			</div>
 		</div>
 		<%= calendar_method(@month, @year, @holidays).html_safe %>
