@@ -36,7 +36,47 @@ table {
 		border: 1px solid lightgray;
 		text-align: right;
 		vertical-align: bottom;
+	}
+	h3, p {
 		margin-right: 0.5vw;
 		margin-bottom: 0.5vh;
+		text-transform: uppercase;
 	}
+	h3 {
+		font-size: 1em;
+	}
+	p {
+		font-size: 2em;
+	}
+}
+.day-calendar {
+	background-color: lightgray;
+	border: 1px solid white;
+}
+.calendar-today {
+	background-color: lightgray;
+	color: black;
+}
+.calendar-holiday {
+	background-color: red;
+	color: white;
+}
+.legenda {
+	margin: 1vh 0;
+}
+.legenda-text {
+	float: left;
+}
+.legenda-verm {
+	background-color: red;
+	width: 2vw;
+	float: left;
+	margin-right: 1vw;
+}
+.legenda-cinza {
+	background-color: lightgray;
+	width: 2vw;
+	float: left;
+	margin-right: 1vw;
+	margin-left: 1vw;
 }

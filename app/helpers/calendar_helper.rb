@@ -260,7 +260,7 @@ module CalendarHelper
     # Create an array that holds each day for the title row and distribute it
     days = %w(Domingo Segunda Ter&ccedil;a Quarta Quinta Sexta S&aacute;bado)
     days.each do |day|
-      cal += "<td>#{day}</td>".html_safe
+      cal += "<td class='day-calendar'><h3>#{day}</h3></td>".html_safe
     end
 
     # Print out the empty days of the first week
@@ -274,13 +274,11 @@ module CalendarHelper
       this_date = (year_date += 1) 
       this_day = (the_day += 1)
       if this_date == actual_date_num
-        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
-        cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
-        cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
+        cal += "<td class='calendar-today'><p>#{this_day}</p></td>"
+      elsif national_array.include?(this_date) || municipal_array.include?(this_date)
+        cal += "<td class='calendar-holiday'><p>#{this_day}</p></td>"
       else
-        cal += "<td>#{year_date} / #{this_day}</td>"
+        cal += "<td><p>#{this_day}</p></td>"
       end
     end
     cal += "</tr>"
@@ -291,13 +289,11 @@ module CalendarHelper
       this_date = (year_date += 1) 
       this_day = (the_day += 1)
       if this_date == actual_date_num
-        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
-        cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
-        cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
+        cal += "<td class='calendar-today'><p>#{this_day}</p></td>"
+      elsif national_array.include?(this_date) || municipal_array.include?(this_date)
+        cal += "<td class='calendar-holiday'><p>#{this_day}</p></td>"
       else
-        cal += "<td>#{year_date} / #{this_day}</td>"
+        cal += "<td><p>#{this_day}</p></td>"
       end
     end
     cal += "</tr>"
@@ -308,13 +304,11 @@ module CalendarHelper
       this_date = (year_date += 1) 
       this_day = (the_day += 1)
       if this_date == actual_date_num
-        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
-        cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
-        cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
+        cal += "<td class='calendar-today'><p>#{this_day}</p></td>"
+      elsif national_array.include?(this_date) || municipal_array.include?(this_date)
+        cal += "<td class='calendar-holiday'><p>#{this_day}</p></td>"
       else
-        cal += "<td>#{year_date} / #{this_day}</td>"
+        cal += "<td><p>#{this_day}</p></td>"
       end
     end
     cal += "</tr>"
@@ -325,13 +319,11 @@ module CalendarHelper
       this_date = (year_date += 1)
       this_day = (the_day += 1)
       if this_date == actual_date_num
-        cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-      elsif national_array.include?(this_date)
-        cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-      elsif municipal_array.include?(this_date)
-        cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
+        cal += "<td class='calendar-today'><p>#{this_day}</p></td>"
+      elsif national_array.include?(this_date) || municipal_array.include?(this_date)
+        cal += "<td class='calendar-holiday'><p>#{this_day}</p></td>"
       else
-        cal += "<td>#{year_date} / #{this_day}</td>"
+        cal += "<td><p>#{this_day}</p></td>"
       end
     end
     cal += "</tr>"
@@ -344,13 +336,11 @@ module CalendarHelper
           this_date = (year_date += 1)
           this_day = (the_day += 1)
           if this_date == actual_date_num
-            cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-          elsif national_array.include?(this_date)
-            cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-          elsif municipal_array.include?(this_date)
-            cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
+            cal += "<td class='calendar-today'><p>#{this_day}</p></td>"
+          elsif national_array.include?(this_date) || municipal_array.include?(this_date)
+            cal += "<td class='calendar-holiday'><p>#{this_day}</p></td>"
           else
-            cal += "<td>#{year_date} / #{this_day}</td>"
+            cal += "<td><p>#{this_day}</p></td>"
           end
         else 
           the_day += 1
@@ -368,13 +358,11 @@ module CalendarHelper
           this_date = (year_date += 1)
           this_day = (the_day += 1)
           if this_date == actual_date_num
-            cal += "<td style='background-color: red; color: white'>#{this_day}</td>"
-          elsif national_array.include?(this_date)
-            cal += "<td style='background-color: blue; color: white'>#{this_day}</td>"
-          elsif municipal_array.include?(this_date)
-            cal += "<td style='background-color: green; color: white'>#{this_day}</td>"
+            cal += "<td class='calendar-today'><p>#{this_day}</p></td>"
+          elsif national_array.include?(this_date) || municipal_array.include?(this_date)
+            cal += "<td class='calendar-holiday'><p>#{this_day}</p></td>"
           else
-            cal += "<td>#{year_date} / #{this_day}</td>"
+            cal += "<td><p>#{this_day}</p></td>"
           end
         else 
           the_day += 1
@@ -385,6 +373,7 @@ module CalendarHelper
     end
 
     cal += "</tr></table>"
+    cal += "<div class='legenda'>Legenda:<br /><p class='legenda-verm'>&nbsp;</p><p class='legenda-text'>Feriado</p><p class='legenda-cinza'>&nbsp;</p><p class='legenda-text'>Hoje</p></div>"
     cal += "</div>"
 
     puts "Month: #{month}"
