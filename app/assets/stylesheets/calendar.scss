@@ -3,6 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 /***** HEADER *****/
+.calendar-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
 .titles {
 	text-align: center;
 	h1, {
@@ -16,22 +21,16 @@
 		font-size: 2vmax;
 	}
 }
-.dates-main {
-	display: inline;
-	padding-top: 5vh;
-	a, h2 {
-    	vertical-align: bottom;
-	}
-}
 .dates-main h2 {
-	display: inline;
-	margin: 0 1vw;
+	display: inline-box;
+	display: -moz-inline-box;
+	margin-left: 1vw;
+	margin-right: 1vw;
 }
 .title-city {
-	padding-top: 1vh;
-}
-.calendar-div {
-	margin: 2vh 2vw;
+	a {		
+		font-size: 1vmax;
+	}
 }
 /***** CALENDARIO *****/
 .calendar-main {

@@ -34,6 +34,8 @@ class CalendarController < ApplicationController
 
     @holidays = Holiday1.where('holiday_city' == @city)
     #@holidays = Holiday1.all
+    fullcitybefore = Holiday1.where('holiday_city' == @city)
+    @fullcity = fullcitybefore[0]['holiday_city_full']
 
     @prev_year = @year - 1
 

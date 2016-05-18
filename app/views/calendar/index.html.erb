@@ -1,6 +1,6 @@
 <div class="section group">
 	<div class="col span_3_of_4 calendar-main">	
-		<div class="section group">
+		<div class="section group calendar-top">
 			<div class="col span_2_of_5 titles">
 				<h1 style="margin: 0 0.2em;">Calendar</h1>
 			</div>
@@ -8,7 +8,7 @@
 				<%= dates_method(@month, @year, @holidays).html_safe %>
 			</div>
 			<div class="col span_1_of_5 titles title-city">
-				<p><%= "City: #{@city}" %><br /><%=  link_to "Mudar cidade", logout_path(city: 'logout') %></p>
+				<p><%= "#{@fullcity}" %><br /><%=  link_to "Mudar cidade", logout_path(city: 'logout') %></p>
 			</div>
 		</div>
 		<%= calendar_method(@month, @year, @holidays).html_safe %>
