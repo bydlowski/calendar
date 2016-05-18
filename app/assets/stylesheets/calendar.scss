@@ -15,21 +15,25 @@
 		font-size: 5vmax;
 	}
 	a {		
-		font-size: 1.5vmax;
+		font-size: 1.1vmax;
 	}
 	h2 {
 		font-size: 2vmax;
 	}
 }
 .dates-main h2 {
-	display: inline-box;
+	display: inline-block;
 	display: -moz-inline-box;
-	margin-left: 1vw;
-	margin-right: 1vw;
+	margin-left: 0.5vw;
+	margin-right: 0.5vw;
 }
 .title-city {
+	p {		
+		font-size: 1.5vmax;
+		line-height: 1vmax;
+	}
 	a {		
-		font-size: 1vmax;
+		font-size: 0.8vmax;
 	}
 }
 /***** CALENDARIO *****/
@@ -88,7 +92,7 @@ table {
 	width: 2vw;
 	float: left;
 	margin-left: 1vw;
-	margin-right: 1vw;
+	margin-right: 0.2vw;
 }
 .lverm {
 	background-color: red;

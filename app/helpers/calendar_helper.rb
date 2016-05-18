@@ -189,7 +189,7 @@ module CalendarHelper
     # Calculations for the next month
     next_month = month + 1
     next_year = year
-    if next_month >= 12 
+    if next_month > 12 
       next_month = 1
       next_year = year + 1
     end
