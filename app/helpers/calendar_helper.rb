@@ -477,7 +477,7 @@ module CalendarHelper
     hol += "<li>Faltam #{ Date.leap?(year) ? (366 - actual_date_num) : (365 - actual_date_num)} dias para acabar o ano</li>"
     hol += "</ul>"
 
-    hol += "<h2>Festas</h2>"
+    hol += "<h3>Festas</h3>"
     hol += "<ul>"
     
     if md_day_num == actual_date_num
@@ -511,7 +511,7 @@ module CalendarHelper
     end
 
     hol += "</ul>"
-    hol += "<h2>Feriados</h2>"
+    hol += "<h3>Feriados</h3>"
     hol += "<ul>"
 
     if (correct_hol_num - actual_date_num) > 1

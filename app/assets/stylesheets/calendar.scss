@@ -27,13 +27,11 @@
 	display: inline;
 	margin: 0 1vw;
 }
-.title-city p {
-	vertical-align: middle;
-	position: relative;
-	/*top: 50%;*/
+.title-city {
+	padding-top: 1vh;
 }
 .calendar-div {
-	margin: 0 2vw;
+	margin: 2vh 2vw;
 }
 /***** CALENDARIO *****/
 .calendar-main {
@@ -65,8 +63,9 @@ table {
 	}
 }
 .day-calendar {
-	background-color: lightgray;
+	background-color: darkslategrey;
 	border: 1px solid white;
+	color: white;
 }
 .calendar-today {
 	background-color: lightgray;
@@ -75,6 +74,9 @@ table {
 .calendar-holiday {
 	background-color: red;
 	color: white;
+}
+.calendar-table {
+	color: darkslategrey;
 }
 /***** LEGENDA *****/
 .legenda-text {
