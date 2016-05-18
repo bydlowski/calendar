@@ -12,10 +12,17 @@
 		</div>
 	</div>
 	<div class="col span_3_of_4 calendar-main" style="color:gray">	
-		<h1>Calendar</h1>
-		<div class="city-info">
-			<%= "City: #{@city}" %><br/>
-			<%= link_to "Mudar cidade", logout_path(city: 'logout') %><br/>	
+		<div class="section group">
+			<div class="col span_1_of_4 titles" style="color:gray">
+				<h1 style="margin-top: 0">Calendar</h1>
+			</div>
+			<div class="col span_2_of_4 dates-main titles" style="color:gray">
+				<%= dates_method(@month, @year, @holidays).html_safe %>
+			</div>
+			<div class="col span_1_of_4 titles" style="color:gray">
+				<%= "City: #{@city}" %><br/>
+				<%= link_to "Mudar cidade", logout_path(city: 'logout') %><br/>	
+			</div>
 		</div>
 		<%= calendar_method(@month, @year, @holidays).html_safe %>
 	</div>

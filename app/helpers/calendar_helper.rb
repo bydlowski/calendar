@@ -152,7 +152,7 @@ module CalendarHelper
 
   end
 
-  def calendar_method(month, year, holiday)
+  def dates_method(month, year, holiday)
 
     x = all_holidays_method(year, holiday)
 
@@ -195,21 +195,54 @@ module CalendarHelper
     end
 
     # Initiate the variable cal
-    cal = ""
+    dates = ""
 
     # Create a link to the previous month
     # cal += link_to "#{prev_month} / #{prev_year}", "http://localhost:3000/?month=#{prev_month}&year=#{prev_year}"
-    cal += link_to "#{prev_month} / #{prev_year}", calendar_index_path(month: prev_month, year: prev_year, city: @city)
+    dates += link_to "#{prev_month} / #{prev_year}", calendar_index_path(month: prev_month, year: prev_year, city: @city)
 
     # Space between links
-    cal += " #{month} / #{year} "
+    dates += "<h2>#{current_date.strftime("%B")} / #{current_date.strftime("%Y")}</h2>"
+    #dates += " #{month} / #{year} "
 
     # Create a link to the next month
     # cal += link_to "#{next_month} / #{next_year}", "http://localhost:3000/?month=#{next_month}&year=#{next_year}"
-    cal += link_to "#{next_month} / #{next_year}", calendar_index_path(month: next_month, year: next_year, city: @city)
+    dates += link_to "#{next_month} / #{next_year}", calendar_index_path(month: next_month, year: next_year, city: @city)
 
     # Print out the month of the passed date
-    cal += "<h2>#{current_date.strftime("%B")} / #{current_date.strftime("%Y")}</h2>"
+    #dates += "<h2>#{current_date.strftime("%B")} / #{current_date.strftime("%Y")}</h2>"
+
+    return dates
+
+  end
+
+  def calendar_method(month, year, holiday)
+
+    x = all_holidays_method(year, holiday)
+
+    national_array = x[0]
+    municipal_array = x[1]
+
+    # Create a date based on the month and year that are passed to this action
+    # Example 2016 11 01
+    current_date = Date.new(year, month, 1)
+
+    # Create a numerical value based on a selected day, month and year
+    # Example 2016 03 24
+    picked_date = Date.new(2015, 9, 20)
+    picked_number = picked_date.yday
+    picked_date_leap = Date.new(2016, 9, 20)
+    picked_number_leap = picked_date_leap.yday
+
+    # Create a numerical value based on the date selected in the above variable
+    # Example 2016 11 01 is 306
+    year_date = (current_date.yday - 1)
+
+    # Create a numerical value based on the actual date
+    # Example 2016 05 05 is 126
+    actual_date_num = (Date.today).yday
+
+    cal = ""
 
     # Create a variable that holds which day of the week (integer) is the current day
     day_of_the_week = current_date.strftime("%w").to_i
