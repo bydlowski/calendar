@@ -1,18 +1,22 @@
-<h1>Calendar</h1>
-<%= "City: #{@city}" %><br/>
-<%= link_to "Mudar cidade", logout_path(city: 'logout') %><br/>
-<%= calendar_method(@month, @year, @holidays).html_safe %>
-<%= holidays_div_method(@holidays).html_safe %>
-<h1>Year Review</h1>
-<%= link_to "2016", from_category_path(this_year: 2016, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-<%= link_to "2017", from_category_path(this_year: 2017, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-<%= link_to "2018", from_category_path(this_year: 2018, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-<%= link_to "2019", from_category_path(this_year: 2019, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-<%= link_to "2020", from_category_path(this_year: 2020, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-<div id="from_category">
-	<%= year_review_method(2016, @holidays).html_safe %>
+<div class="section group">
+	<div class="col span_1_of_4 sidebar-main" style="color:orange">
+		<%= holidays_div_method(@holidays).html_safe %>
+		<h1>Year Review</h1>
+		<%= link_to "2016", from_category_path(this_year: 2016, holiday: @holidays, city: @city), :method => :post, :remote => true %>
+		<%= link_to "2017", from_category_path(this_year: 2017, holiday: @holidays, city: @city), :method => :post, :remote => true %>
+		<%= link_to "2018", from_category_path(this_year: 2018, holiday: @holidays, city: @city), :method => :post, :remote => true %>
+		<%= link_to "2019", from_category_path(this_year: 2019, holiday: @holidays, city: @city), :method => :post, :remote => true %>
+		<%= link_to "2020", from_category_path(this_year: 2020, holiday: @holidays, city: @city), :method => :post, :remote => true %>
+		<div id="from_category">
+			<%= year_review_method(2016, @holidays).html_safe %>
+		</div>
+	</div>
+	<div class="col span_3_of_4 calendar-main" style="color:gray">	
+		<h1>Calendar</h1>
+		<div class="city-info">
+			<%= "City: #{@city}" %><br/>
+			<%= link_to "Mudar cidade", logout_path(city: 'logout') %><br/>	
+		</div>
+		<%= calendar_method(@month, @year, @holidays).html_safe %>
+	</div>
 </div>
-
-
-
-
