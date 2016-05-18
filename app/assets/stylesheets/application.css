@@ -29,7 +29,7 @@ body {
 /*  COLUMN SETUP  */
 .col {
 	display: block;
-	float:left;
+	
 	/*margin: 1% 0 1% 1%;*/
 }
 .col:first-child { margin-left: 0; }
@@ -46,20 +46,24 @@ body {
 }
 .span_3_of_4 {
 	width: 74.75%;
+	float:left;
 }
 .span_2_of_4 {
 	width: 49.5%;
 }
 .span_1_of_4 {
 	width: 24.25%;
+	float:right;
 }
 
 /*  GRID OF FIVE  */
 .span_2_of_5 {
 	width: 39%;
+	float:left;
 }
 .span_1_of_5 {
 	width: 20%;
+	float:left;
 }
 
 /*  GO FULL WIDTH BELOW 480 PIXELS */

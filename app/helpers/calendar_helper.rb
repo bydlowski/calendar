@@ -470,7 +470,7 @@ module CalendarHelper
     end
 
     hol = ""
-    hol += "<div>"
+    hol += "<div class='holidays-div'>"
     hol += "<h2>Dados sobre esse ano</h2>"
     hol += "<ul>"
     hol += "<li>Esse é #{actual_date_num}&ordm; dia do ano</li>"
@@ -629,7 +629,6 @@ module CalendarHelper
     xmas_weekday_text = weekdays_array[xmas_weekday]
 
     div_year = ""
-    div_year += "@city is: #{@city}"
     div_year += "<div>"
     div_year += "<h3>Fatos sobre #{year}</h3>"
     div_year += "<p>Nesse ano o natal cairá em #{(xmas_weekday == 0 || xmas_weekday == 6) ? "um" : "uma"} #{xmas_weekday_text}.</p>"

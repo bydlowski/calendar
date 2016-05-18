@@ -2,11 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.sidebar-main {
-	background-color: darkgray;
-	color: white;
-	height: 100vh;
-}
+/***** HEADER *****/
 .titles {
 	text-align: center;
 	h1, {
@@ -22,10 +18,9 @@
 }
 .dates-main {
 	display: inline;
+	padding-top: 5vh;
 	a, h2 {
-		vertical-align: 0;
-		position: relative;
-		top: 50%;
+    	vertical-align: bottom;
 	}
 }
 .dates-main h2 {
@@ -38,7 +33,11 @@
 	/*top: 50%;*/
 }
 .calendar-div {
-	margin: 2vw;
+	margin: 0 2vw;
+}
+/***** CALENDARIO *****/
+.calendar-main {
+	height: 10vh;
 }
 table {
 	margin: 0;
@@ -77,6 +76,7 @@ table {
 	background-color: red;
 	color: white;
 }
+/***** LEGENDA *****/
 .legenda-text {
 	margin: 1vh 0;
 	p {
@@ -95,6 +95,36 @@ table {
 .lcinza {
 	background-color: lightgray;
 }
-.calendar-main {
-	height: 10vh;
+/***** LATERAL *****/
+.sidebar-main {
+	background-color: darkslategrey;
+	color: white;
+	min-height: 100vh;
+	height: 100%;
+}
+.holidays-div {
+	padding: 0 1vmin;
+}
+.year {
+	padding: 1vmin;
+	line-height: 6vmin;
+	display: inline;
+	a {
+		text-decoration: none;
+		border: 2px solid whitesmoke;
+		border-radius: 2px;
+		padding: 1vmin;
+		background-color: gray;
+		color: white;
+	}
+	a:hover {
+		background-color: coral;
+	}
+}
+.review {
+	padding: 0 1vmin;
+}
+.active a {
+	background-color: lightgray;
+	color: darkslategrey;
 }

@@ -15,14 +15,16 @@
 	</div>
 	<div class="col span_1_of_4 sidebar-main">
 		<%= holidays_div_method(@holidays).html_safe %>
-		<h1>Year Review</h1>
-		<%= link_to "2016", from_category_path(this_year: 2016, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-		<%= link_to "2017", from_category_path(this_year: 2017, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-		<%= link_to "2018", from_category_path(this_year: 2018, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-		<%= link_to "2019", from_category_path(this_year: 2019, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-		<%= link_to "2020", from_category_path(this_year: 2020, holiday: @holidays, city: @city), :method => :post, :remote => true %>
-		<div id="from_category">
-			<%= year_review_method(2016, @holidays).html_safe %>
+		<div class="review">
+			<h2>Próximos anos</h2>
+			<div class='year active'><%= link_to "2016", from_category_path(this_year: 2016, holiday: @holidays, city: @city), :method => :post, :remote => true %></div>
+			<div class='year'><%= link_to "2017", from_category_path(this_year: 2017, holiday: @holidays, city: @city), :method => :post, :remote => true %></div>
+			<div class='year'><%= link_to "2018", from_category_path(this_year: 2018, holiday: @holidays, city: @city), :method => :post, :remote => true %></div>
+			<div class='year'><%= link_to "2019", from_category_path(this_year: 2019, holiday: @holidays, city: @city), :method => :post, :remote => true %></div>
+			<div class='year'><%= link_to "2020", from_category_path(this_year: 2020, holiday: @holidays, city: @city), :method => :post, :remote => true %></div>
+			<div id="from_category">
+				<%= year_review_method(2016, @holidays).html_safe %>
+			</div>
 		</div>
 	</div>
 </div>

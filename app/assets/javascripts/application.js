@@ -15,3 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
+$(document).on('click', '.year a', function(e) {
+	$('.year').removeClass('active');
+	$(this).parent().addClass('active');
+});
