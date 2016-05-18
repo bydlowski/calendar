@@ -254,7 +254,8 @@ module CalendarHelper
     month_days = Time.days_in_month(month, year)
 
     # Start printing the calendar
-    cal += "<table border='1'><tr>"
+    cal += "<div class='calendar-div'>"
+    cal += "<table class='calendar-table'><tr>"
 
     # Create an array that holds each day for the title row and distribute it
     days = %w(Domingo Segunda Ter&ccedil;a Quarta Quinta Sexta S&aacute;bado)
@@ -384,6 +385,7 @@ module CalendarHelper
     end
 
     cal += "</tr></table>"
+    cal += "</div>"
 
     puts "Month: #{month}"
     puts "Year: #{year}"
