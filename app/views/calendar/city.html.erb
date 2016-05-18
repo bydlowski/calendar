@@ -1,17 +1,20 @@
-<h1>Choose city</h1>
-<%= form_for ('calendar_city_path') do |form| %>
-	<p>
-	<%= form.label 'Selecione uma cidade'  %>:
-	<%= form.radio_button :city, 'n, Nenhuma' %>
-	<%= form.label :city, 'Nenhuma' %>
-	<%= form.radio_button :city, 'belohorizonte, Belo Horizonte' %>
-	<%= form.label :city, 'Belo Horizonte'  %>
-	<%= form.radio_button :city, 'portoalegre, Porto Alegre' %>
-	<%= form.label :city, 'Porto Alegre' %>
-  <%= form.radio_button :city, 'riodejaneiro, Rio de Janeiro' %>
-	<%= form.label :city, 'Rio de Janeiro'%>
-	<%= form.radio_button :city, 'saopaulo, São Paulo' %>
-	<%= form.label :city, 'São Paulo' %>
-	</p>
-	<%= form.submit "OK" %>
-<% end %>
+<div class="choice-page">
+	<h1>Escolha uma cidade</h1>
+	<div class="choice-form">
+		<%= form_for ('calendar_city_path') do |form| %>
+			<p>
+			<%= form.radio_button :city, 'n, Nenhuma' %>
+			<%= form.label :city, 'Nenhuma' %><br />
+			<%= form.radio_button :city, 'belohorizonte, Belo Horizonte' %>
+			<%= form.label :city, 'Belo Horizonte'  %><br />
+			<%= form.radio_button :city, 'portoalegre, Porto Alegre' %>
+			<%= form.label :city, 'Porto Alegre' %><br />
+		  <%= form.radio_button :city, 'riodejaneiro, Rio de Janeiro' %>
+			<%= form.label :city, 'Rio de Janeiro'%><br />
+			<%= form.radio_button :city, 'saopaulo, São Paulo' %>
+			<%= form.label :city, 'São Paulo' %><br />
+			</p>
+			<%= form.submit "OK" %>
+		<% end %>
+	</div>
+</div>
