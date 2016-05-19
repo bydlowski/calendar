@@ -162,9 +162,14 @@ table {
 }
 .choice-form {
 	width: 20vw;
-	margin: auto;
+	position: fixed;
+	left: 53%;
+	margin-left: -10vw;
 }
 .choice-form input[type="submit"]{
-	text-align: center;
+	position: fixed;
+	left: 50%;
+	width: 5vw;
+	margin-left: -2.5vw;
 }
 
