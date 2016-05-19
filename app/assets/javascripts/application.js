@@ -19,3 +19,10 @@ $(document).on('click', '.year a', function(e) {
 	$('.year').removeClass('active');
 	$(this).parent().addClass('active');
 });
+
+$(document).on('mouseenter', 'td', function() {
+    $(this).addClass('calendar-hover');
+});
+$(document).on('mouseleave', 'td', function() {
+	$(this).removeClass('calendar-hover');
+});
