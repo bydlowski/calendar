@@ -165,9 +165,9 @@ module CalendarHelper
 
     # Create a numerical value based on a selected day, month and year
     # Example 2016 03 24
-    picked_date = Date.new(2015, 9, 20)
+    picked_date = Date.new(2015, 7, 9)
     picked_number = picked_date.yday
-    picked_date_leap = Date.new(2016, 9, 20)
+    picked_date_leap = Date.new(2016, 7, 9)
     picked_number_leap = picked_date_leap.yday
 
     # Create a numerical value based on the date selected in the above variable
@@ -229,9 +229,9 @@ module CalendarHelper
 
     # Create a numerical value based on a selected day, month and year
     # Example 2016 03 24
-    picked_date = Date.new(2015, 9, 20)
+    picked_date = Date.new(2015, 7, 9)
     picked_number = picked_date.yday
-    picked_date_leap = Date.new(2016, 9, 20)
+    picked_date_leap = Date.new(2016, 7, 9)
     picked_number_leap = picked_date_leap.yday
 
     # Create a numerical value based on the date selected in the above variable
@@ -384,6 +384,8 @@ module CalendarHelper
     puts "Picked Number: #{picked_number}"
     puts "Picked Date: #{picked_date_leap}"
     puts "Picked Number: #{picked_number_leap}"
+    puts "National Array: #{national_array}"
+    puts "Municipal Array: #{municipal_array}"
     
     return cal
 
