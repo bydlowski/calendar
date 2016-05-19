@@ -93,6 +93,7 @@ module CalendarHelper
       array << t
     end
 
+    # If it's a leap year save the specific dates from a specific city
     if leap_year
       array.each do |a|
         if a['holiday_city'] == @city 
@@ -107,19 +108,21 @@ module CalendarHelper
       end
     end
 
-
+    # Save the names of the holidays in another array
     array.each do |a|
       if a['holiday_city'] == @city  
         municipal_text << a['holiday_name']
       end
     end
 
+    # Rio de Janeiro is the only city that does not celebrate Corpus Christi XO
     if (@city != 'riodejaneiro')
       municipal_holidays << corpus_christi_num
       municipal_text << corpus_christi_name
       municipal_array << "#{sprintf('%03d', corpus_christi_num)}#{corpus_christi_name}"
     end
 
+    # Create an array that has the date (in three digits) and name of the holiday for sorting reasons
     if leap_year
       array.each do |a|
         if a['holiday_city'] == @city  
@@ -148,14 +151,17 @@ module CalendarHelper
     all_holidays_day_of_week = []
     all_holidays_dates.each {|x| all_holidays_day_of_week << x.wday}
 
+    # Return all these arrays so the code can be used in other methods
     return national_array, municipal_holidays, municipal_text, all_holidays, all_holidays_num, all_holidays_text, all_holidays_dates, all_holidays_day_of_week
 
   end
 
   def dates_method(month, year, holiday)
 
+    # Pull the arrays from the other method
     x = all_holidays_method(year, holiday)
 
+    # Pull these specific arrays
     national_array = x[0]
     municipal_array = x[1]
 
@@ -218,8 +224,10 @@ module CalendarHelper
 
   def calendar_method(month, year, holiday)
 
+    # Pull the arrays from the other method
     x = all_holidays_method(year, holiday)
 
+    # Pull these specific arrays
     national_array = x[0]
     municipal_array = x[1]
 
@@ -376,6 +384,7 @@ module CalendarHelper
     cal += "<div class='legenda-text'><p>Legenda:</p><p class='leg lverm'>&nbsp;</p><p>Feriado</p><p class='leg lcinza'>&nbsp;</p><p>Hoje</p></div>"
     cal += "</div>"
 
+    # Put this information to the console for error checking
     puts "Month: #{month}"
     puts "Year: #{year}"
     puts "Date: #{current_date}"

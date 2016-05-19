@@ -4,10 +4,11 @@ class CalendarController < ApplicationController
 
   def index
 
+    # Create a city array that contains all possible url information
     city_array = ['logout', 'n', 'belohorizonte', 'portoalegre', 'riodejaneiro', 'saopaulo']
 
-    
-
+    # This is mainly to equate the parameters: if a person chooses a city it should be saved and used throughout the app
+    # There are two scenarios where the city will be forgotten: if a person changes cities ('logout') or something wrong happens (else)
     if (params['calendar_city_path'] || params['city'])
       if (params['city'] == nil)
         city_param_array = params['calendar_city_path']['city'].split(",")
@@ -24,22 +25,19 @@ class CalendarController < ApplicationController
       redirect_to '/'
     end
 
+    # Several variables for month and year calculations
     @time = Time.now
-    # @month = 2
     @month = params['month'].to_i
-    # @year = 2016
     @year = params['year'].to_i
     if !(@month >= 1 && @month <= 12) 
       @month = @time.strftime("%m").to_i
     end
     if @year <= 1800
       @year = @time.strftime("%Y").to_i
-    end
+    end  
 
+    # Pick the data from the database only from the chosen city
     @holidays = Holiday1.where('holiday_city' == @city)
-    #@holidays = Holiday1.all
-
-    @prev_year = @year - 1
 
   end
 
@@ -49,6 +47,7 @@ class CalendarController < ApplicationController
 
   def from_category
 
+    # Pick the right variables from the parameters given by the javascript code
     @this_year = params[:this_year]
     @holidays = Holiday1.where('holiday_city' == @city)
     @city = params[:city]
